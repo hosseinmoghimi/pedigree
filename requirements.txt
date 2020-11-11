@@ -1,0 +1,16 @@
+Django
+django-cleanup
+django-mysql
+django-resized
+django-tinymce
+djangorestframework
+mysqlclient
+openpyxl
+persiantools
+Pillow
+pylint
+PyMySQL
+requests
+sqlparse
+toml
+pylint-django
