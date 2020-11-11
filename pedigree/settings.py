@@ -25,12 +25,14 @@ SECRET_KEY = 'kbhs!$9lhet%gmeo4u=^&u5w#q3_(61p=nzi2ack*)c4fyx%o7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'utility',
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+ADMIN_URL = '/admin/'
+import os
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATICFILESDIR=['static']
