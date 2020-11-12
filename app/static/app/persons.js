@@ -1,16 +1,25 @@
-let persons_app=new Vue(
+let persons_app = new Vue(
     {
-        el:"#persons-app",
-        data:{
-            persons:persons,
-            add:'جستجو کن',
+        el: "#persons-app",
+        data: {
+            persons: persons,
+            add: 'جستجو کن',
+            search_for: '',
 
         },
-        methods:{
-            select_person:function(person_id){
+        methods: {
+            search: function () {
+                console.log(this.search_for)
+
+                if (this.search_for === '')
+                    this.persons = persons
+                else
+                    this.persons = persons.filter(person => person.full_name.indexOf(this.search_for) >= 0)
+            },
+            select_person: function (person_id) {
                 var posting = $.post(get_person_url,
                     {
-                        person_id: person_id,                        
+                        person_id: person_id,
                         csrfmiddlewaretoken: csrfmiddlewaretoken
                     }
                 );
@@ -19,9 +28,8 @@ let persons_app=new Vue(
                 posting.done(function (data) {
 
                     if (data.result === 'SUCCEED') {
-                        person=data.person
-                        person_app.person=data.person
-                    console.log(person)
+                        person = data.person
+                        person_app.person = data.person
 
                     }
                 })
