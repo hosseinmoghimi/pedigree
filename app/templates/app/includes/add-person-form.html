@@ -1,0 +1,24 @@
+<div id="add-person-app">
+	<form @submit.prevent="add_person" >
+		<div class="row">
+			<div class="input-group mb-3 col-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon3">First Name : </span>
+				</div>
+				<input v-model="first_name" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+	
+			<div class="input-group mb-3 col-6">
+				<div class="input-group-prepend ">
+					<span class="input-group-text bg-warning" id="basic-addon3">Last Name : </span>
+				</div>
+				<input v-model="last_name" required type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+	<button class="btn btn-success" v-text="add">
+
+	</button>
+	
+		</div>
+	
+	</form>
+</div>
