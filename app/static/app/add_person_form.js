@@ -1,17 +1,17 @@
-let add_person_app=new Vue(
+let add_person_app = new Vue(
     {
-        el:"#add-person-app",
-        data:{
-            first_name:'',
-            last_name:'',
-            birthdate:'',
-            deathdate:'',
-            add:'اضافه کن',
+        el: "#add-person-app",
+        data: {
+            first_name: '',
+            last_name: '',
+            birthdate: '',
+            deathdate: '',
+            add: 'اضافه کن',
 
         },
-        methods:{
-            add_person:function(){
-                
+        methods: {
+            add_person: function () {
+
 
 
                 var posting = $.post(add_person_url,
@@ -26,12 +26,15 @@ let add_person_app=new Vue(
 
                 // Put the results in a div
                 posting.done(function (data) {
-                    console.log(data)
 
                     if (data.result === 'SUCCEED') {
                         add_person_app.first_name = ''
                         add_person_app.last_name = ''
                         persons.push(data.person)
+                        console.log(data)
+                        person_app.person=data.person
+
+                        person_app.person = data.person
                     }
                 })
 

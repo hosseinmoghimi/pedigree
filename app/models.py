@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.shortcuts import reverse
-from pedigree.settings import ADMIN_URL, MEDIA_URL
+from pedigree.settings import ADMIN_URL, MEDIA_URL,STATIC_URL
 from .apps import APP_NAME
 from django.utils.translation import gettext as _
 from .enums import GenderEnum
@@ -15,7 +15,8 @@ class Person(models.Model):
     date_added=models.DateTimeField(_("date_added"), auto_now=False, auto_now_add=True)
     date_updated=models.DateTimeField(_("date_updated"), auto_now_add=False, auto_now=True)
     
-
+    def image(self):
+        return STATIC_URL+'app/img/person.jpg'
 
     class Meta:
         verbose_name = _("Person")

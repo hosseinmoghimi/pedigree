@@ -5,12 +5,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
 
             {% include 'app/includes/person.html' %}
-            {% include 'app/includes/add-person-form.html' %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            {% include 'app/includes/add-person-form.html' %}
+            
+        </div>
+        <div class="col-md-4">
             {% include 'app/includes/persons.html' %}
         </div>
     </div>
@@ -44,7 +47,7 @@
     });
 </script>
 <script src="{% static 'vendor/js/vue.min.js' %}"></script>
-<script src="{% static 'app/add_person_form.js' %}"></script>
 <script src="{% static 'app/persons.js' %}"></script>
 <script src="{% static 'app/person.js' %}"></script>
+<script src="{% static 'app/add_person_form.js' %}"></script>
 {% endblock script %}
