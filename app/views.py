@@ -27,6 +27,6 @@ class BasicViews(View):
 # Create your views here.
 
 class PersonView(View):
-    def Person_detail(self,request,*args, **kwargs):
+    def person(self,request,*args, **kwargs):
         context=getContext(request)
         return render(request,TEMPLATE_ROOT+'person.html',context)

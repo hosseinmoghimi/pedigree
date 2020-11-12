@@ -18,7 +18,6 @@ class PersonView(APIView):
                 birthdate=add_person_form.cleaned_data['birthdate']
                 deathdate=add_person_form.cleaned_data['deathdate']
                 person= PersonRepo(user=request.user).add_person(first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
-                person= PersonRepo(user=request.user).add_person(first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
                 if person is not None:
                     log=4
                     person_s=PersonSerializer(person).data
@@ -44,6 +43,25 @@ class PersonView(APIView):
                     context={
                         'result':SUCCEED,
                         'person':person_s
+                    }
+                    return JsonResponse(context)
+        return JsonResponse({'result':FAILED,'log':log})
+
+    def delete_person(self,request,*args, **kwargs):
+        log=1
+        if request.method=='POST':
+            log=2
+            delete_person_form=DeletePersonForm(request.POST)
+            if delete_person_form.is_valid():
+                log=3
+                person_id=delete_person_form.cleaned_data['person_id']
+                persons= PersonRepo(user=request.user).delete(person_id=person_id)
+                if persons is not None:
+                    log=4
+                    persons_s=PersonSerializer(persons,many=True).data
+                    context={
+                        'result':SUCCEED,
+                        'persons':persons_s
                     }
                     return JsonResponse(context)
         return JsonResponse({'result':FAILED,'log':log})

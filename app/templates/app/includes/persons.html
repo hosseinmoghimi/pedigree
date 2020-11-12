@@ -2,6 +2,8 @@
 <div  id="persons-app">
 <input type="text" placeholder="search ..." class="form-control" v-model="search_for" @input="search">
     <div class="" v-for="person in persons">
-        <button class="btn btn-block btn-light" @click="select_person(person.id)" v-text="person.full_name"></button>
+        <button class="btn btn-block btn-light" @click="select_person(person.id)"
+        data-toggle="modal" data-target="#PersonModal"
+        v-text="person.full_name"></button>
     </div>
 </div>
