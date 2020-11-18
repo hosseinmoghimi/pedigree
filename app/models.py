@@ -37,3 +37,21 @@ class Person(models.Model):
         return reverse(APP_NAME+":"+self.table_name, kwargs={"pk": self.pk})
     def get_admin_url(self):
         return f'{ADMIN_URL}{APP_NAME}/{self.table_name}/{self.pk}/change/'
+
+
+
+
+class Family(models.Model):
+    father=models.ForeignKey("Person",related_name="family_father", verbose_name=_("پدر"), on_delete=models.CASCADE)
+    mother=models.ForeignKey("Person",related_name="family_mother", verbose_name=_("مادر"), on_delete=models.CASCADE)
+    childs=models.ManyToManyField("Person",related_name="family_childs", verbose_name=_("فرزندان"))
+    class Meta:
+        verbose_name = _("Family")
+        verbose_name_plural = _("Familys")
+
+    def __str__(self):
+        return 'خانواده '+str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("app:family", kwargs={"pk": self.pk})
+ 

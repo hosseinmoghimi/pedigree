@@ -29,6 +29,7 @@ class PersonView(APIView):
         return JsonResponse({'result':FAILED,'log':log})
 
     def get_person(self,request,*args, **kwargs):
+        user=request.user
         log=1
         if request.method=='POST':
             log=2
@@ -37,12 +38,15 @@ class PersonView(APIView):
                 log=3
                 person_id=get_person_form.cleaned_data['person_id']
                 person= PersonRepo(user=request.user).person(person_id=person_id)
+                families=FamilyRepo(user=user).family_of_person(person_id=person_id)
                 if person is not None:
                     log=4
                     person_s=PersonSerializer(person).data
+                    families_s=FamilySerializer(families,many=True).data
                     context={
                         'result':SUCCEED,
-                        'person':person_s
+                        'person':person_s,
+                        'families':families_s
                     }
                     return JsonResponse(context)
         return JsonResponse({'result':FAILED,'log':log})
