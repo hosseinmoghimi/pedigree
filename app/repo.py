@@ -1,5 +1,16 @@
 from .models import *
+from django.db.models import Q
+class FamilyRepo():
+    def __init__(self,user):
+        self.user=user
+        self.objects=Family.objects
+    def family_of_person(self,person_id):
+        person=PersonRepo(self.user).person(person_id=person_id)
+        families0= person.family_childs.all()
+        families= self.objects.filter(Q(father=person)|Q(mother=person)|Q(id__in=families0.values('id')))
+        # families= self.objects.filter(Q(father=person)|Q(mother=person))
 
+        return families
 class PersonRepo():
     def __init__(self,user):
         self.user=user

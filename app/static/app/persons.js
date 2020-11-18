@@ -17,7 +17,7 @@ let persons_app = new Vue(
                     this.persons = persons.filter(person => person.full_name.indexOf(this.search_for) >= 0)
             },
             select_person: function (person_id) {
-                var posting = $.post(get_person_url,
+                var posting = $.post(url_get_person,
                     {
                         person_id: person_id,
                         csrfmiddlewaretoken: csrfmiddlewaretoken
@@ -30,6 +30,8 @@ let persons_app = new Vue(
                     if (data.result === 'SUCCEED') {
                         person = data.person
                         person_app.person = data.person
+                        person_app.families = data.families
+                        person_app.selected_family = {}
 
                     }
                 })

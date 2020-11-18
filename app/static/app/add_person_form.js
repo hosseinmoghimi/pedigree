@@ -14,7 +14,7 @@ let add_person_app = new Vue(
 
 
 
-                var posting = $.post(add_person_url,
+                var posting = $.post(url_add_person,
                     {
                         first_name: add_person_app.first_name,
                         last_name: add_person_app.last_name,

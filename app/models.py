@@ -42,8 +42,8 @@ class Person(models.Model):
 
 
 class Family(models.Model):
-    father=models.ForeignKey("Person",related_name="family_father", verbose_name=_("پدر"), on_delete=models.CASCADE)
-    mother=models.ForeignKey("Person",related_name="family_mother", verbose_name=_("مادر"), on_delete=models.CASCADE)
+    father=models.ForeignKey("Person",related_name="family_fathers", verbose_name=_("پدر"), on_delete=models.CASCADE)
+    mother=models.ForeignKey("Person",related_name="family_mothers", verbose_name=_("مادر"), on_delete=models.CASCADE)
     childs=models.ManyToManyField("Person",related_name="family_childs", verbose_name=_("فرزندان"))
     class Meta:
         verbose_name = _("Family")

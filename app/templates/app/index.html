@@ -26,11 +26,11 @@
     let persons = JSON.parse(`{{persons_s|escapejs}}`)
     let person = {}
 
-    let add_person_url = "{% url 'app:add_person' %}"
+    let url_add_person = "{% url 'app:add_person' %}"
 
-    let get_person_url = "{% url 'app:get_person' %}"
+    let url_get_person = "{% url 'app:get_person' %}"
 
-    let delete_person_url = "{% url 'app:delete_person' %}"
+    let url_delete_person= "{% url 'app:delete_person' %}"
 </script>
 {% csrf_token %}
 <script>
@@ -46,7 +46,7 @@
     });
 </script>
 <script src="{% static 'vendor/js/vue.min.js' %}"></script>
-<script src="{% static 'app/persons.js' %}"></script>
 <script src="{% static 'app/person.js' %}"></script>
+<script src="{% static 'app/persons.js' %}"></script>
 <script src="{% static 'app/add_person_form.js' %}"></script>
 {% endblock script %}

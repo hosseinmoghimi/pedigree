@@ -1,0 +1,33 @@
+{% include "app/includes/selected_family.html" %}
+
+<div v-if="selected_family">
+    <h5 v-if="selected_family.father" class="btn btn-block btn-success"
+      @click="select_person(selected_family.father.id)">
+      پدر :
+      <span v-text="selected_family.father.full_name">
+
+      </span>
+    </h5>
+
+
+    <h5 v-if="selected_family.mother" class="btn  btn-block btn-danger"
+      @click="select_person(selected_family.mother.id)">
+
+      مادر :
+      <span v-text="selected_family.mother.full_name">
+
+      </span>
+    </h5>
+
+
+    <h5 class="btn btn-link btn-danger" v-for="child in btn-block selected_family.childs"
+      @click="select_person(child.id)">
+
+      فرزند :
+      <span v-text="child.full_name">
+
+      </span>
+    </h5>
+
+
+  </div>
