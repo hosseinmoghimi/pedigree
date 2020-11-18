@@ -12,9 +12,10 @@ class FamilySerializer(serializers.ModelSerializer):
     father=PersonSerializer1()
     mother=PersonSerializer1()
     childs=PersonSerializer1(many=True)
+    child_families=serializers.PrimaryKeyRelatedField(many=True,read_only=True)
     class Meta:
-        model=Person
-        fields=['id','father','mother','childs']
+        model=Family
+        fields=['id','father','mother','childs','child_families','master_family_id']
 class PersonSerializer(serializers.ModelSerializer):
     family_fathers=FamilySerializer(many=True)
     family_mothers=FamilySerializer(many=True)

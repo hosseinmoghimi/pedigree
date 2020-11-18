@@ -24,6 +24,13 @@ class BasicViews(View):
         context['add_person_form']=AddPersonForm
         context['get_person_form']=GetPersonForm
         return render(request,TEMPLATE_ROOT+'index.html',context)
+    def chart(self,request,*args, **kwargs):
+        user=request.user
+        context=getContext(request)
+        families=FamilyRepo(user=user).roots()
+        families_s=json.dumps(FamilySerializer(families,many=True).data)
+        context['families_s']=families_s
+        return render(request,TEMPLATE_ROOT+'chart.html',context)
 # Create your views here.
 
 class PersonView(View):

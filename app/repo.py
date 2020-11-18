@@ -11,6 +11,9 @@ class FamilyRepo():
         # families= self.objects.filter(Q(father=person)|Q(mother=person))
 
         return families
+    def roots(self):
+        # return self.objects.filter(Q(father=None)|Q(mother=None))
+        return self.objects.all()
 class PersonRepo():
     def __init__(self,user):
         self.user=user

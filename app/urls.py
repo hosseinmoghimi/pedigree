@@ -5,6 +5,7 @@ from . import api
 app_name=APP_NAME
 urlpatterns = [
     path('',views.BasicViews().home,name='home'),
+    path('chart/',views.BasicViews().chart,name='chart'),
     path('person/<int:pk>/',views.PersonView().person,name='person'),
     path('add_person/',api.PersonView().add_person,name='add_person'),
     path('get_person/',api.PersonView().get_person,name='get_person'),

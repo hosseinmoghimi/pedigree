@@ -42,12 +42,23 @@ class Person(models.Model):
 
 
 class Family(models.Model):
-    father=models.ForeignKey("Person",related_name="family_fathers", verbose_name=_("پدر"), on_delete=models.CASCADE)
-    mother=models.ForeignKey("Person",related_name="family_mothers", verbose_name=_("مادر"), on_delete=models.CASCADE)
-    childs=models.ManyToManyField("Person",related_name="family_childs", verbose_name=_("فرزندان"))
+    father=models.ForeignKey("Person",related_name="family_fathers",null=True,blank=True, verbose_name=_("پدر"), on_delete=models.CASCADE)
+    mother=models.ForeignKey("Person",related_name="family_mothers",null=True,blank=True, verbose_name=_("مادر"), on_delete=models.CASCADE)
+    childs=models.ManyToManyField("Person",related_name="family_childs",blank=True, verbose_name=_("فرزندان"))
     class Meta:
         verbose_name = _("Family")
         verbose_name_plural = _("Familys")
+
+    def child_families(self):
+        childs=self.childs.all()
+        return Family.objects.filter(father__in=childs)
+
+    def master_family_id(self):
+        # childs=self.childs.all()
+        try:
+            return Family.objects.filter(childs__in=self.father).first().pk
+        except :
+            return 0
 
     def __str__(self):
         return 'خانواده '+str(self.pk)
