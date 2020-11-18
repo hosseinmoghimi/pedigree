@@ -2,15 +2,16 @@
 {% load static %}
 
 <head>
+    <!-- <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}"> -->
     <script type="text/javascript" src="{% static 'charts/loader.js' %}"></script>
     <script type="text/javascript">
 
         let families = JSON.parse(`{{families_s|escapejs}}`)
         google.charts.load('current', { packages: ["orgchart"] });
         google.charts.setOnLoadCallback(drawChart);
-        // var data = 1
+        let data = 1
         function drawChart() {
-            let data = new google.visualization.DataTable();
+            data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Name');
             data.addColumn('string', 'Manager');
@@ -23,8 +24,8 @@
                 data.addRow(
                     [{
                         'v': family.id.toString(), 'f': `
-                        <div>`+ family.father.full_name + `</div>
-                        <div>`+ family.mother.full_name + `</div>
+                        <div class="text-primary">`+ family.father?family.father.full_name:`` + `</div>
+                        <div class="text-secondary">`+ family.mother?family.mother.full_name:`` + `</div>
                         `
                     },
                     family.master_family_id.toString(), 'The President']
@@ -47,6 +48,15 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-success" href="{% url 'app:home' %}">خانه</a>
+                <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
+
+            </div>
+        </div>
+    </div>
     <div id="chart_div"></div>
 </body>
 

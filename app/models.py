@@ -17,7 +17,68 @@ class Person(models.Model):
     image_origin=models.ImageField(_("image"), upload_to=IMAGE_FOLDER+'Person/',null=True,blank=True, height_field=None, width_field=None, max_length=None)
     
     table_name='person'
+    
+    def childs(self):
+        
+    # if self.gender==GenderEnum.MALE:
+        try:
+            childs=self.family_fathers.first().childs.all()
+            return childs
+        except:
+            pass
+    # if self.gender==GenderEnum.FEMALE:
+    
+        try:
+            childs= self.family_mothers.first().childs.all()
+            return childs
+        except:
+            pass     
+            
+        return None
+    
+    def siblings(self):
+        
+     
+        try:
+            childs= self.family_childs.first().childs.all()
+            return childs
+        except:
+            pass     
+            
+        return None
 
+    def wife(self):
+        
+        try:
+            wife=self.family_fathers.first().mother
+            return wife
+        except:
+            pass
+         
+                
+        return None
+
+
+    def husband(self):       
+        try:
+            husband= self.family_mothers.first().father
+            print(husband)
+            return husband
+        except:
+            pass     
+                
+        return None
+
+    def father(self):
+        try:
+            return self.family_childs.first().father
+        except:
+            return None
+    def mother(self):
+        try:
+            return self.family_childs.first().mother
+        except:
+            return None
     def image(self):
         if self.image_origin :
             return MEDIA_URL+str(self.image_origin)
@@ -56,12 +117,17 @@ class Family(models.Model):
     def master_family_id(self):
         # childs=self.childs.all()
         try:
-            return Family.objects.filter(childs__in=self.father).first().pk
+            return self.father.family_childs.first().pk
         except :
-            return 0
+            pass
+        try:
+            return self.mother.family_childs.first().pk
+        except :
+            pass
+        return 0
 
     def __str__(self):
-        return 'خانواده '+str(self.pk)
+        return f'خانواده {str(self.pk)}  ( {self.father.full_name()}, )'
 
     def get_absolute_url(self):
         return reverse("app:family", kwargs={"pk": self.pk})

@@ -4,12 +4,14 @@ from .apps import APP_NAME
 from .repo import *
 from .forms import *
 from .enums import *
+from pedigree.settings import ADMIN_URL,STATIC_URL
 import json
 from .serializers import *
 
 TEMPLATE_ROOT='app/'
 def getContext(request):
     context = {}
+    context['ADMIN_URL']=ADMIN_URL
     context['title'] ='شجره نامه' 
     return context
 
