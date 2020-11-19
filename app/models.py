@@ -62,7 +62,6 @@ class Person(models.Model):
     def husband(self):       
         try:
             husband= self.family_mothers.first().father
-            print(husband)
             return husband
         except:
             pass     

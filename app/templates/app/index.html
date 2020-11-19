@@ -3,25 +3,25 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-md-4">
+<div class="row">
+    <div class="col-md-4">
 
-            <a class="btn btn-success" href="{% url 'app:chart' %}">نمودار</a>
-            <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
-            <a class="btn btn-success" href="{{ADMIN_URL}}app/family/add/">خانواده جدید</a>
-        </div>
-        <div class="col-md-4">
-
-            {% include 'app/includes/person.html' %}
-        </div>
-        <div class="col-md-4">
-            {% include 'app/includes/add-person-form.html' %}
-            
-        </div>
-        <div class="col-md-4">
-            {% include 'app/includes/persons.html' %}
-        </div>
+        <a class="btn btn-success" href="{% url 'app:chart' %}">نمودار</a>
+        <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
+        <a class="btn btn-success" href="{{ADMIN_URL}}app/family/add/">خانواده جدید</a>
     </div>
+    <div class="col-md-4">
+
+        {% include 'app/includes/person.html' %}
+    </div>
+    <div class="col-md-4">
+        {% include 'app/includes/add-person-form.html' %}
+
+    </div>
+    <div class="col-md-4">
+        {% include 'app/includes/persons.html' %}
+    </div>
+</div>
 
 
 
@@ -36,7 +36,7 @@
 
     let url_get_person = "{% url 'app:get_person' %}"
 
-    let url_delete_person= "{% url 'app:delete_person' %}"
+    let url_delete_person = "{% url 'app:delete_person' %}"
 </script>
 {% csrf_token %}
 <script>
