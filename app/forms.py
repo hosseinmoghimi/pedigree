@@ -18,3 +18,6 @@ class AddPersonForm(forms.Form):
 class AddChildForm(forms.Form):
     family_id=forms.IntegerField(required=True)
     first_name=forms.CharField(max_length=50,required=True)
+    
+class SearchPersonForm(forms.Form):
+    search_for=forms.CharField(max_length=50,required=True)

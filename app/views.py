@@ -21,6 +21,7 @@ class BasicViews(View):
         user=request.user
         context=getContext(request)
         persons=PersonRepo(user=user).persons()
+        persons=persons.filter(id__lte=0)
         persons_s=json.dumps(PersonSerializer(persons,many=True).data)
         context['persons_s']=persons_s
         context['add_person_form']=AddPersonForm

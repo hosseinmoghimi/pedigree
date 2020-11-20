@@ -32,6 +32,7 @@ let add_person_app = new Vue(
                         add_person_app.last_name = ''
                         persons_app.persons.push(data.person)
                         person_app.person=data.person
+                        person_app.families=[]
                     }
                 })
 

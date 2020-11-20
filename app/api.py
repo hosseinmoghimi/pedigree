@@ -28,6 +28,25 @@ class PersonView(APIView):
                     return JsonResponse(context)
         return JsonResponse({'result':FAILED,'log':log})
 
+   
+    def search_person(self,request,*args, **kwargs):
+        log=1
+        if request.method=='POST':
+            log=2
+            search_person_form=SearchPersonForm(request.POST)
+            if search_person_form.is_valid():
+                log=3
+                search_for=search_person_form.cleaned_data['search_for']
+                persons= PersonRepo(user=request.user).search(search_for=search_for)
+                if persons is not None:
+                    log=4
+                    persons_s=PersonSerializer(persons,many=True).data
+                    context={
+                        'result':SUCCEED,
+                        'persons':persons_s
+                    }
+                    return JsonResponse(context)
+        return JsonResponse({'result':FAILED,'log':log})
     def get_person(self,request,*args, **kwargs):
         user=request.user
         log=1

@@ -39,6 +39,9 @@ class PersonRepo():
         person=Person(first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
         person.save()
         return person
+    def search(self,search_for):
+        persons=self.objects.filter(Q(first_name__contains=search_for)|Q(last_name__contains=search_for)|Q(first_name__contains=search_for))
+        return persons
     def person(self,person_id):        
         try:
             return self.objects.get(pk=person_id)

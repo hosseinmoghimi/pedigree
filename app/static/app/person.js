@@ -10,6 +10,30 @@ let person_app = new Vue(
 
         },
         methods: {
+            add_wife:function(){
+                var posting = $.post(url_add_wife,
+                    {
+                        first_name: person_app.first_name,
+                        family_id: family.id,
+                        csrfmiddlewaretoken: csrfmiddlewaretoken
+                    }
+                );
+
+                // Put the results in a div
+                posting.done(function (data) {
+
+                    if (data.result === 'SUCCEED') {
+                        person_app.first_name = ''
+                        person_app.families.forEach(family => {
+                            if (family.id == data.family.id) {
+                                family.childs = data.family.childs
+                            }
+
+                        });
+                    }
+                })
+
+            },
             add_child: function (family) {
 
 
