@@ -1,105 +1,41 @@
-<html>
-{% load static %}
+<!doctype html>
+<html class="zc-html">
 
 <head>
-    <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'leo/css/font-farsi.css' %}">
-    <link rel="stylesheet" href="{% static 'leo/css/leo.css' %}">
+    {% load static %}
+    <meta charset="utf-8">
+    <title>ZingSoft Demo</title>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
     <style>
-        * {
-            font-family: "HMFONT";
+        .zc-body {
+            background: #fff;
         }
-    </style>
 
-
-
-    <script type="text/javascript" src="{% static 'charts/loader.js' %}"></script>
-    <script type="text/javascript">
-
-        let families = JSON.parse(`{{families_s|escapejs}}`)
-        google.charts.load('current', { packages: ["orgchart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        let data = 1
-        function drawChart() {
-            data = new google.visualization.DataTable();
-
-            data.addColumn('string', 'Name');
-            data.addColumn('string', 'Manager');
-            data.addColumn('string', 'ToolTip');
-
-            families.forEach(family => {
-                // childs=family.childs.forEach(child=>{
-                //     return child
-                // })
-                let title = `<span @click="show('sss')"><div class="text-primary">` + family.father ? family.father.full_name : `` + `</div>
-                        <div class="text-secondary">`+ family.mother ? family.mother.full_name : `` + `</div></span>
-                        `
-                title1 = family.father ? family.father.full_name : family.id.toString()
-                title2 = family.mother ? family.mother.full_name : family.id.toString()
-                console.log(title)
-                data.addRow(
-                    [{
-                        'v': family.id.toString(), 'f': `<div class="text-primary">` + title1 + `</div><div class="text-secondary">` + title2 + `</div>`
-                    },
-                    family.master_family_id != 0 ? family.master_family_id.toString() : '', 'The President']
-                )
-            });
-
-
-
-
-
-            // For each orgchart box, provide the name, manager, and tooltip to show.
-
-
-            // Create the chart.
-            var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-            // Draw the chart, setting the allowHtml option to true for the tooltips.
-            chart.draw(data, { 'allowHtml': true });
+        .chart--container {
+            height: 100%;
+            width: 100%;
+            min-height: 600px;
         }
-    </script>
-    <style>
-        table {
 
-            border-collapse: unset !important;
+        .zc-ref {
+            display: none;
         }
     </style>
 </head>
+​
 
-<body>
-    <div class="" id="app">
-
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-4">
-                    <input class="form-control" type="text" v-model="name">
-                    <br>
-                    <a class="btn btn-success" href="{% url 'app:home' %}">خانه</a>
-                    <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
-                    <button @click="show(name)" class="btn btn-danger">
-                        نمایش
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="chart_div"></div>
-
+<body class="zc-body">
+    ​
+    <div id="myChart" class="chart--container">
+        <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref">Powered by ZingChart</a>
     </div>
-
-    <script src="{% static 'vendor/js/vue.min.js' %}"></script>
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/374756/simpsons.js'></script>
     <script>
-        let app = new Vue({
-            el: "#app",
-            data: {
-                name: 'mmd',
-            },
-            methods: {
-                show: function (name) {
-                    alert(name)
-                },
-            },
-        })
+        let families=JSON.parse(`{{families_s|escapejs}}`)
+        let persons=JSON.parse(`{{persons_s|escapejs}}`)
     </script>
+    <script src="{% static 'app/chart.js' %}"></script>
 </body>
 
 </html>

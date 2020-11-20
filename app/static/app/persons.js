@@ -22,6 +22,7 @@ let persons_app = new Vue(
                     posting.done(function (data) {
 
                         if (data.result === 'SUCCEED') {
+                            persons = data.persons
                             persons_app.persons = data.persons
                         }
                     })
@@ -35,7 +36,7 @@ let persons_app = new Vue(
             },
             start_search: function (search_for) {
 
-                persons_app.persons = persons_app.persons.filter(person => person.full_name.indexOf(this.search_for) >= 0)
+                persons_app.persons = persons.filter(person => person.full_name.indexOf(search_for) >= 0)
                 // perrsons = persons_app.persons.filter(person => person.full_name.indexOf(this.search_for) >= 0)
                 // perrsons = persons_app.persons.filter(person => person.full_name.indexOf(this.search_for) >= 0)
                 // persons_app.persons = persons

@@ -30,10 +30,32 @@ class BasicViews(View):
     def chart(self,request,*args, **kwargs):
         user=request.user
         context=getContext(request)
+        families=FamilyRepo(user=user).roots().filter(id__lte=4)
         families=FamilyRepo(user=user).roots()
         families_s=json.dumps(FamilySerializer(families,many=True).data)
         context['families_s']=families_s
+
+
+        persons=PersonRepo(user=user).persons()
+        persons_s=json.dumps(PersonSerializer(persons,many=True).data)
+        context['persons_s']=persons_s
+
         return render(request,TEMPLATE_ROOT+'chart.html',context)
+
+    def chart2(self,request,*args, **kwargs):
+        user=request.user
+        context=getContext(request)
+        families=FamilyRepo(user=user).roots().filter(id__lte=4)
+        families=FamilyRepo(user=user).roots()
+        families_s=json.dumps(FamilySerializer(families,many=True).data)
+        context['families_s']=families_s
+
+
+        persons=PersonRepo(user=user).persons()
+        persons_s=json.dumps(PersonSerializer(persons,many=True).data)
+        context['persons_s']=persons_s
+
+        return render(request,TEMPLATE_ROOT+'chart2.html',context)
 # Create your views here.
 
 class PersonView(View):
