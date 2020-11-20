@@ -1,53 +1,50 @@
 <div id="person-app">
-
-  <!-- Button trigger modal -->
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="PersonModal" tabindex="-1" aria-labelledby="PersonModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel" v-text="person.full_name"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="text-center">
-
-            <img :src="person.image" width="128" class="rounded-circle" alt="">
-          </div>
-          <h3 v-text="person.full_name" class="text-center"></h3>
-          <h6 v-if="person.father" class="text-center btn btn-success btn-block"
-            @click="select_person(person.father.id)" v-text="` نام پدر : `+person.father.full_name"></h6>
-          <h6 v-if="person.mother" class="text-center btn btn-danger btn-block" @click="select_person(person.mother.id)"
-            v-text="` نام مادر : `+person.mother.full_name"></h6>
-          <h6 v-for="sibling in person.siblings" v-if="sibling.id!=person.id"
-            class="text-center btn btn-secondary btn-block" @click="select_person(sibling.id)"
-            v-text="` نام خواهر /برادر : `+sibling.full_name"></h6>
-          <h6 v-if="person.wife" class="text-center btn btn-info btn-block" @click="select_person(person.wife.id)"
-            v-text="` نام همسر : `+person.wife.full_name"></h6>
-          <h6 v-if="person.husband" class="text-center btn btn-info btn-block" @click="select_person(person.husband.id)"
-            v-text="` نام همسر : `+person.husband.full_name"></h6>
-          <h6 v-for="child in person.childs" class="text-center btn btn-warning btn-block"
-            @click="select_person(child.id)" v-text="` نام فرزند : `+child.full_name"></h6>
+  <div class="row rtl">
 
 
+    <div class="col-md-6">
+      <div class="text-center">
 
-
-
-        </div>
-
-        <div class="modal-footer">
-          <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        <img :src="person.image" width="128" class="rounded-circle" alt="">
       </div>
+      <h3 v-text="person.full_name" class="text-center my-2"></h3>
+
+      <div v-if="person.full_name" class="text-center mb-2">
+        <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
+        <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
+      </div>
+
+      
+
+
+
+      <h6 v-if="person.father" class="text-center btn btn-success btn-block" @click="select_person(person.father.id)"
+        v-text="` نام پدر : `+person.father.full_name"></h6>
+      <h6 v-if="person.mother" class="text-center btn btn-danger btn-block" @click="select_person(person.mother.id)"
+        v-text="` نام مادر : `+person.mother.full_name"></h6>
+      <h6 v-for="sibling in person.siblings" v-if="sibling.id!=person.id"
+        class="text-center btn btn-secondary btn-block" @click="select_person(sibling.id)"
+        v-text="` نام خواهر /برادر : `+sibling.full_name"></h6>
+      <h6 v-if="person.wife" class="text-center btn btn-info btn-block" @click="select_person(person.wife.id)"
+        v-text="` نام همسر : `+person.wife.full_name"></h6>
+      <h6 v-if="person.husband" class="text-center btn btn-info btn-block" @click="select_person(person.husband.id)"
+        v-text="` نام همسر : `+person.husband.full_name"></h6>
+      <h6 v-for="child in person.childs" class="text-center btn btn-warning btn-block" @click="select_person(child.id)"
+        v-text="` نام فرزند : `+child.full_name"></h6>
+
+
+
+
+
     </div>
+
+    <div class="col-md-6">
+      <div v-for="selected_family in families" class="mb-5">
+
+        {% include "app/includes/selected_family.html" %}
+      </div>
+
+    </div>
+  
   </div>
-
-
 </div>

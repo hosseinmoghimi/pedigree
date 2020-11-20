@@ -1,33 +1,86 @@
-{% include "app/includes/selected_family.html" %}
-
 <div v-if="selected_family">
-    <h5 v-if="selected_family.father" class="btn btn-block btn-success"
-      @click="select_person(selected_family.father.id)">
-      پدر :
-      <span v-text="selected_family.father.full_name">
 
-      </span>
-    </h5>
+  <div class="card p-3">
+    <div class="row rtl">
+      <div class="col-6">
+        <h5 v-if="selected_family.father" class="btn btn-link  d-block"
+          @click="select_person(selected_family.father.id)">
+          <div class="text-secondary">
+            پدر
 
+          </div>
+          <div v-text="selected_family.father.full_name">
 
-    <h5 v-if="selected_family.mother" class="btn  btn-block btn-danger"
-      @click="select_person(selected_family.mother.id)">
-
-      مادر :
-      <span v-text="selected_family.mother.full_name">
-
-      </span>
-    </h5>
+          </div>
 
 
-    <h5 class="btn btn-link btn-danger" v-for="child in btn-block selected_family.childs"
-      @click="select_person(child.id)">
+        </h5>
+      </div>
 
-      فرزند :
-      <span v-text="child.full_name">
+      <div class="col-6">
+        <h5 v-if="selected_family.mother" class="btn  btn-link d-block"
+          @click="select_person(selected_family.mother.id)">
+          <div class="text-secondary">
+            مادر
 
-      </span>
-    </h5>
+          </div>
+          <div v-text="selected_family.mother.full_name">
+
+          </div>
+
+        </h5>
+      </div>
+
+
+
+
+    </div>
+
+
+    <div class="cord-body">
+      <h5 class="btn btn-link d-block" v-for="child in selected_family.childs" @click="select_person(child.id)">
+
+        <span class="text-secondary">
+
+
+          فرزند
+        </span>
+
+        <span v-text="child.full_name">
+
+        </span>
+      </h5>
+    </div>
+
+
+
+    <div class="card-footer">
+
+      <form @submit.prevent="add_child(selected_family)">
+        <div class="row rtl">
+          <div class="col-md-8">
+
+            <input v-model="first_name" placeholder="نام " type="text" class="form-control"  
+               >
+
+          </div>
+          <div class="col-md-4">
+
+            <button class="btn btn-success" v-text="'افزودن فرزند'">
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
 
 
   </div>
+
+
+
+
+
+</div>

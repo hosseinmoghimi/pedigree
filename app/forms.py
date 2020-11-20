@@ -2,6 +2,9 @@ from django import forms
 class GetPersonForm(forms.Form):
     person_id=forms.IntegerField(required=True)
 
+class SelectFamilyForm(forms.Form):
+    family_id=forms.IntegerField(required=True)
+
 class DeletePersonForm(forms.Form):
     person_id=forms.IntegerField(required=True)
 
@@ -12,3 +15,6 @@ class AddPersonForm(forms.Form):
     birthdate=forms.DateField(required=False)
     deathdate=forms.DateField(required=False)
     
+class AddChildForm(forms.Form):
+    family_id=forms.IntegerField(required=True)
+    first_name=forms.CharField(max_length=50,required=True)

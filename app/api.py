@@ -69,3 +69,43 @@ class PersonView(APIView):
                     }
                     return JsonResponse(context)
         return JsonResponse({'result':FAILED,'log':log})
+class FamilyViews(APIView):
+
+    def add_child(self,request,*args, **kwargs):
+        log=1
+        if request.method=='POST':
+            log=2
+            add_child_form=AddChildForm(request.POST)
+            if add_child_form.is_valid():
+                log=3
+                first_name=add_child_form.cleaned_data['first_name']
+                family_id=add_child_form.cleaned_data['family_id']
+                family= FamilyRepo(user=request.user).add_child(first_name=first_name,family_id=family_id)
+                if family is not None:
+                    log=4
+                    family_s=FamilySerializer(family).data
+                    context={
+                        'result':SUCCEED,
+                        'family':family_s
+                    }
+                    return JsonResponse(context)
+        return JsonResponse({'result':FAILED,'log':log})
+
+    def select_family(self,request,*args, **kwargs):
+        log=1
+        if request.method=='POST':
+            log=2
+            select_family_form=SelectFamilyForm(request.POST)
+            if select_family_form.is_valid():
+                log=3
+                family_id=select_family_form.cleaned_data['family_id']
+                family= FamilyRepo(user=request.user).family(family_id=family_id)
+                if family is not None:
+                    log=4
+                    family_s=FamilySerializer(family).data
+                    context={
+                        'result':SUCCEED,
+                        'family':family_s
+                    }
+                    return JsonResponse(context)
+        return JsonResponse({'result':FAILED,'log':log})

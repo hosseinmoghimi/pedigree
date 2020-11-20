@@ -3,29 +3,23 @@
 
 {% block content %}
 
-<div class="row rtl">
-    <div class="col-12 text-right">
+<div class="row">
+    <div class="col-md-4">
 
         <a class="btn btn-success" href="{% url 'app:chart' %}">نمودار</a>
         <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
         <a class="btn btn-success" href="{{ADMIN_URL}}app/family/add/">خانواده جدید</a>
     </div>
-    <div class="col-12">
-        {% include 'app/includes/add-person-form.html' %}
-        
-    </div>
-
     <div class="col-md-4">
-        {% include 'app/includes/persons.html' %}
-    </div>
-    <div class="col-md-8">
 
         {% include 'app/includes/person.html' %}
     </div>
-  
     <div class="col-md-4">
-        
-        {% include "app/includes/family.html" %}
+        {% include 'app/includes/add-person-form.html' %}
+
+    </div>
+    <div class="col-md-4">
+        {% include 'app/includes/persons.html' %}
     </div>
 </div>
 
@@ -43,8 +37,6 @@
     let url_get_person = "{% url 'app:get_person' %}"
 
     let url_delete_person = "{% url 'app:delete_person' %}"
-    let url_select_family = "{% url 'app:select_family' %}"
-    let url_add_child = "{% url 'app:add_child' %}"
 </script>
 {% csrf_token %}
 <script>
@@ -63,5 +55,4 @@
 <script src="{% static 'app/person.js' %}"></script>
 <script src="{% static 'app/persons.js' %}"></script>
 <script src="{% static 'app/add_person_form.js' %}"></script>
-<script src="{% static 'app/family.js' %}"></script>
 {% endblock script %}

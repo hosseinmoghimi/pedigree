@@ -10,6 +10,20 @@
     <!-- Bootstrap CSS -->
     
     <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'leo/css/font-farsi.css' %}">
+    <link rel="stylesheet" href="{% static 'leo/css/leo.css' %}">
+    <style>
+        *{
+            font-family: "HMFONT";
+        }
+        .rtl{
+            direction: rtl !important;
+        }
+        .modal-header>.close{
+            margin-left: 0!important;
+            margin-top: -7px!important;
+        }
+    </style>
     <title>{{title}}</title>
 </head>
 

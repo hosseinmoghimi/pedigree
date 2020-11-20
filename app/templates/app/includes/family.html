@@ -1,0 +1,34 @@
+<div id="family-app">
+  
+<div v-if="family">
+    <h5 v-if="family.father" class="btn btn-block btn-success"
+      @click="select_person(family.father.id)">
+      پدر :
+      <span v-text="family.father.full_name">
+
+      </span>
+    </h5>
+
+
+    <h5 v-if="family.mother" class="btn  btn-block btn-danger"
+      @click="select_person(family.mother.id)">
+
+      مادر :
+      <span v-text="family.mother.full_name">
+
+      </span>
+    </h5>
+
+
+    <h5 class="btn btn-link btn-danger" v-for="child in btn-block family.childs"
+      @click="select_person(child.id)">
+
+      فرزند :
+      <span v-text="child.full_name">
+
+      </span>
+    </h5>
+
+
+  </div>
+</div>
