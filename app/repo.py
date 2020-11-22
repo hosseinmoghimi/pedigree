@@ -25,15 +25,21 @@ class FamilyRepo():
 
         for family in person.family_fathers.all():
             ids.append(family.id)
-            for family1 in family.child_families():
-                ids.append(family1.id)
-                # for family2 in family1.child_families():
-                #     ids.append(family2.id)
+            for family in family.child_families():
+                ids.append(family.id)
+                for family2 in family.child_families():
+                    ids.append(family2.id)
+                    for family in family.child_families():
+                        ids.append(family.id)
 
         for family in person.family_mothers.all():
             ids.append(family.id)
-            # for family in family.child_families():
-            #     ids.append(family.id)
+            for family in family.child_families():
+                ids.append(family.id)
+                for family in family.child_families():
+                    ids.append(family.id)
+                    for family in family.child_families():
+                        ids.append(family.id)
         # print(ids)
         families= self.objects.filter(Q(id__in=ids))
         # families= self.objects.filter(Q(father=person)|Q(mother=person))

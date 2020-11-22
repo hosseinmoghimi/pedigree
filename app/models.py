@@ -127,8 +127,10 @@ class Family(models.Model):
         verbose_name_plural = _("Familys")
 
     def child_families(self):
-        childs=self.childs.all()
-        return Family.objects.filter(Q(father__in=childs)|Q(mother__in=childs))
+        childs=[]
+        for child in self.childs.all():
+            childs.append(child.id)
+        return Family.objects.filter(Q(father_id__in=childs)|Q(mother_id__in=childs))
 
     def master_family_id(self):
         # childs=self.childs.all()
