@@ -10,8 +10,11 @@
       <h3 v-text="person.full_name" class="text-center my-2"></h3>
 
       <div v-if="person.full_name" class="text-center mb-2">
-        <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
-        <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
+   
+
+        <a target="_blank" :href="'{{SITE_URL}}/chart/'+person.id+'/'" class="btn btn-warning">نمودار</a>
+          <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
+      <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
       </div>
 
       
@@ -25,10 +28,10 @@
       <h6 v-for="sibling in person.siblings" v-if="sibling.id!=person.id"
         class="text-center btn btn-secondary btn-block" @click="select_person(sibling.id)"
         v-text="` نام خواهر /برادر : `+sibling.full_name"></h6>
-      <h6 v-if="person.wife" class="text-center btn btn-info btn-block" @click="select_person(person.wife.id)"
-        v-text="` نام همسر : `+person.wife.full_name"></h6>
-      <h6 v-if="person.husband" class="text-center btn btn-info btn-block" @click="select_person(person.husband.id)"
-        v-text="` نام همسر : `+person.husband.full_name"></h6>
+      <h6 v-for="wife in person.wives" class="text-center btn btn-info btn-block" @click="select_person(wife.id)"
+        v-text="` نام همسر : `+wife.full_name"></h6>
+      <h6 v-for="husband in person.husbands" class="text-center btn btn-info btn-block" @click="select_person(husband.id)"
+        v-text="` نام همسر : `+husband.full_name"></h6>
       <h6 v-for="child in person.childs" class="text-center btn btn-warning btn-block" @click="select_person(child.id)"
         v-text="` نام فرزند : `+child.full_name"></h6>
 

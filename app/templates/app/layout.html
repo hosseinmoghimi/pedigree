@@ -8,20 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    
+
     <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'leo/css/font-farsi.css' %}">
     <link rel="stylesheet" href="{% static 'leo/css/leo.css' %}">
     <style>
-        *{
+        div{
+            text-align: right;
+        }
+        
+        * {
             font-family: "HMFONT";
         }
-        .rtl{
+
+        .rtl {
             direction: rtl !important;
         }
-        .modal-header>.close{
-            margin-left: 0!important;
-            margin-top: -7px!important;
+
+        .modal-header>.close {
+            margin-left: 0 !important;
+            margin-top: -7px !important;
         }
     </style>
     <title>{{title}}</title>
@@ -32,14 +38,14 @@
     <div class="container pt-5">
 
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock content %}
-   </div>
+        {% endblock content %}
+    </div>
 
-{% block person %}
-  
-{% endblock %}
+    {% block person %}
+
+    {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -59,6 +65,15 @@
     {% block script %}
 
     {% endblock %}
+    <script>
+        $(document).ready(function () {
+            // do some html stuff here
+            persons_app.select_person(9)
+
+            // loadWindowSystem();
+        })
+
+    </script>
 </body>
 
 </html>

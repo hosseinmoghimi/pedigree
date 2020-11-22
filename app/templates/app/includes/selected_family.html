@@ -58,18 +58,20 @@
 
       <form @submit.prevent="add_child(selected_family)">
         <div class="row rtl">
-          <div class="col-md-8">
+          <div class="col-md-8 mb-2">
 
             <input v-model="first_name" placeholder="نام " type="text" class="form-control"  
                >
 
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 mb-2">
 
             <button class="btn btn-success" v-text="'افزودن فرزند'">
             </button>
           </div>
-
+          <div class="col-12 mb-2">
+            <a :href="'{{ADMIN_URL}}{{APP_NAME}}/family/'+selected_family.id+'/change/'" class="btn btn-warning"> ویرایش</a>
+          </div>
         </div>
 
       </form>

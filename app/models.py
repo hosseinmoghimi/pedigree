@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.shortcuts import reverse
+from django.db.models import Q
 from pedigree.settings import ADMIN_URL, MEDIA_URL,STATIC_URL
 from .apps import APP_NAME
 from django.utils.translation import gettext as _
@@ -21,52 +22,68 @@ class Person(models.Model):
     def childs(self):
         
     # if self.gender==GenderEnum.MALE:
+    # if self.gender==GenderEnum.FEMALE:
+
+
         try:
-            childs=self.family_fathers.first().childs.all()
+            ids=[]
+            for family in self.family_fathers.all():
+                for child in family.childs.all():       
+                    ids.append(child.id)   
+            childs=Person.objects.filter(id__in=ids)
             return childs
         except:
             pass
-    # if self.gender==GenderEnum.FEMALE:
     
         try:
-            childs= self.family_mothers.first().childs.all()
+            ids=[]
+            for family in self.family_mothers.all():
+                for child in family.childs.all():        
+                    ids.append(child.id)   
+            childs=Person.objects.filter(id__in=ids)
             return childs
         except:
             pass     
             
-        return None
+        return []
     
     def siblings(self):
         
      
         try:
-            childs= self.family_childs.first().childs.all()
+            childs= self.family_childs.first().childs.filter(~Q(pk=self.pk))
             return childs
         except:
             pass     
             
-        return None
+        return []
 
-    def wife(self):
-        
+    def wives(self):
+        ids=[]
         try:
-            wife=self.family_fathers.first().mother
-            return wife
+            for family in self.family_fathers.all():
+                ids.append(family.mother.id)
+                wives=Person.objects.filter(id__in=ids)
+            return wives
         except:
             pass
          
                 
-        return None
+        return []
 
 
-    def husband(self):       
+    def husbands(self):       
+        ids=[]
         try:
-            husband= self.family_mothers.first().father
-            return husband
+            for family in self.family_mothers.all():
+                ids.append(family.father.id)
+                husbands=Person.objects.filter(id__in=ids)
+            return husbands
         except:
-            pass     
+            pass
+         
                 
-        return None
+        return []
 
     def father(self):
         try:
@@ -111,7 +128,7 @@ class Family(models.Model):
 
     def child_families(self):
         childs=self.childs.all()
-        return Family.objects.filter(father__in=childs)
+        return Family.objects.filter(Q(father__in=childs)|Q(mother__in=childs))
 
     def master_family_id(self):
         # childs=self.childs.all()

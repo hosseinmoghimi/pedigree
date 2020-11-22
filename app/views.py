@@ -12,6 +12,7 @@ TEMPLATE_ROOT='app/'
 def getContext(request):
     context = {}
     context['ADMIN_URL']=ADMIN_URL
+    context['APP_NAME']=APP_NAME
     context['title'] ='شجره نامه' 
     return context
 
@@ -27,16 +28,20 @@ class BasicViews(View):
         context['add_person_form']=AddPersonForm
         context['get_person_form']=GetPersonForm
         return render(request,TEMPLATE_ROOT+'index.html',context)
-    def chart(self,request,*args, **kwargs):
+    def chart(self,request,person_id,*args, **kwargs):
         user=request.user
         context=getContext(request)
-        families=FamilyRepo(user=user).roots().filter(id__lte=4)
-        families=FamilyRepo(user=user).roots()
+        
+        # families1=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
+        # families2=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
+        families=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
+        # families=families1 | families2
         families_s=json.dumps(FamilySerializer(families,many=True).data)
         context['families_s']=families_s
 
+        
 
-        persons=PersonRepo(user=user).persons()
+        persons=PersonRepo(user=user).persons_of_person(person_id=person_id)
         persons_s=json.dumps(PersonSerializer(persons,many=True).data)
         context['persons_s']=persons_s
 
