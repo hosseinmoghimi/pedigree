@@ -16,8 +16,13 @@ class AddPersonForm(forms.Form):
     deathdate=forms.DateField(required=False)
     
 class AddChildForm(forms.Form):
+    child_id=forms.IntegerField(required=False)
     family_id=forms.IntegerField(required=True)
     first_name=forms.CharField(max_length=50,required=True)
     
+    
+class CreateFamilyForm(forms.Form):
+    father_id=forms.IntegerField(required=True)
+    mother_id=forms.IntegerField(required=True)
 class SearchPersonForm(forms.Form):
     search_for=forms.CharField(max_length=50,required=True)

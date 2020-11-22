@@ -29,7 +29,7 @@ let add_person_app = new Vue(
 
                     if (data.result === 'SUCCEED') {
                         add_person_app.first_name = ''
-                        add_person_app.last_name = ''
+                        // add_person_app.last_name = ''
                         persons_app.persons.push(data.person)
                         person_app.person=data.person
                         person_app.families=[]

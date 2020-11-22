@@ -1,53 +1,83 @@
 <div id="person-app">
   <div class="row rtl">
 
-
-    <div class="col-md-6">
-      <div class="text-center">
-
-        <img :src="person.image" width="128" class="rounded-circle" alt="">
-      </div>
-      <h3 v-text="person.full_name" class="text-center my-2"></h3>
-
-      <div v-if="person.full_name" class="text-center mb-2">
-   
-
-        <a target="_blank" :href="'{{SITE_URL}}/chart/'+person.id+'/'" class="btn btn-warning">نمودار</a>
-          <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
-      <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
-      </div>
-
-      
-
-
-
-      <h6 v-if="person.father" class="text-center btn btn-success btn-block" @click="select_person(person.father.id)"
-        v-text="` نام پدر : `+person.father.full_name"></h6>
-      <h6 v-if="person.mother" class="text-center btn btn-danger btn-block" @click="select_person(person.mother.id)"
-        v-text="` نام مادر : `+person.mother.full_name"></h6>
-      <h6 v-for="sibling in person.siblings" v-if="sibling.id!=person.id"
-        class="text-center btn btn-secondary btn-block" @click="select_person(sibling.id)"
-        v-text="` نام خواهر /برادر : `+sibling.full_name"></h6>
-      <h6 v-for="wife in person.wives" class="text-center btn btn-info btn-block" @click="select_person(wife.id)"
-        v-text="` نام همسر : `+wife.full_name"></h6>
-      <h6 v-for="husband in person.husbands" class="text-center btn btn-info btn-block" @click="select_person(husband.id)"
-        v-text="` نام همسر : `+husband.full_name"></h6>
-      <h6 v-for="child in person.childs" class="text-center btn btn-warning btn-block" @click="select_person(child.id)"
-        v-text="` نام فرزند : `+child.full_name"></h6>
-
-
-
-
-
-    </div>
-
-    <div class="col-md-6">
+    <div class="col-md-5">
       <div v-for="selected_family in families" class="mb-5">
+<div v-show="(selected_family.father.id && selected_family.father.id==person.id )|| (selected_family.mother.id && selected_family.mother.id==person.id)">
 
-        {% include "app/includes/selected_family.html" %}
+  {% include "app/includes/selected_family.html" %}
+</div>
       </div>
 
     </div>
-  
+
+
+    <div class="col-md-3 mb-2">
+      <div class="card mb-2 pt-3">
+        <div class="text-center">
+
+          <img :src="person.image" width="128" class="rounded-circle" alt="">
+        </div>
+        <h3 v-text="person.full_name" class="text-center my-2"></h3>
+
+        <div v-if="person.full_name" class="text-center mb-2">
+          <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            فامیل درجه یک
+          </button>
+
+          <button class="btn btn-info" @click="swap_person">
+            بچرخ
+          </button>
+          <a target="_blank" :href="'{{SITE_URL}}/chart/'+person.id+'/'" class="btn btn-warning">نمودار</a>
+          <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
+
+
+          <button data-dismiss="modal" v-if="!confirm_delete" @click="confirm_delete=true" type="button"
+            class="btn btn-danger">حذف</button>
+          <div v-if="confirm_delete">
+
+            <button data-dismiss="modal" @click="confirm_delete=false" type="button"
+              class="btn btn-secondary">نه</button>
+            <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف کن</button>
+          </div>
+
+
+        </div>
+        <div class="">
+          <div class="collapse" id="collapseExample">
+            <div class="p-3">
+              {% include 'app/includes/persons_of_person.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-block btn-primary" @click="create_family">
+        همسر
+      </button>
+
+
+
+
+
+
+    </div>
+    <div class="col-md-3">
+      {% include 'app/includes/secondary_person.html' %}
+
+    </div>
+
+
   </div>
 </div>

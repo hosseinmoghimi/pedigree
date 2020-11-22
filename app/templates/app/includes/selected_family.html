@@ -60,21 +60,33 @@
         <div class="row rtl">
           <div class="col-md-8 mb-2">
 
-            <input v-model="first_name" placeholder="نام " type="text" class="form-control"  
-               >
+            <input v-model="first_name" placeholder="نام " type="text" class="form-control">
 
           </div>
           <div class="col-md-4 mb-2">
 
             <button class="btn btn-success" v-text="'افزودن فرزند'">
             </button>
+           
           </div>
           <div class="col-12 mb-2">
-            <a :href="'{{ADMIN_URL}}{{APP_NAME}}/family/'+selected_family.id+'/change/'" class="btn btn-warning"> ویرایش</a>
+            <a :href="'{{ADMIN_URL}}{{APP_NAME}}/family/'+selected_family.id+'/change/'" class="btn btn-warning">
+              ویرایش</a>
           </div>
         </div>
 
       </form>
+
+      <div v-if="secondary_person.full_name">
+<button class="btn btn-block btn-primary" @click="add_child_to_family(secondary_person.id,selected_family)">
+
+  افزودن
+  <span v-text="secondary_person.full_name"></span>
+  به عنوان فرزند
+</button>
+
+      </div>
+
 
     </div>
 

@@ -6,6 +6,7 @@ let persons_app = new Vue(
             add: 'جستجو کن',
             search_for: '',
 
+
         },
         methods: {
             search: function () {
@@ -57,10 +58,29 @@ let persons_app = new Vue(
                         person_app.person = data.person
                         person_app.families = data.families
                         person_app.selected_family = {}
+                        persons_app.persons=[]
 
                     }
                 })
-            }
+            },select_secondary_person: function (person_id) {
+                var posting = $.post(url_get_person,
+                    {
+                        person_id: person_id,
+                        csrfmiddlewaretoken: csrfmiddlewaretoken
+                    }
+                );
+
+                // Put the results in a div
+                posting.done(function (data) {
+
+                    if (data.result === 'SUCCEED') {
+                        person = data.person
+                        person_app.secondary_person = data.person
+                        persons_app.persons=[]
+
+                    }
+                })
+            },
         }
     }
 )

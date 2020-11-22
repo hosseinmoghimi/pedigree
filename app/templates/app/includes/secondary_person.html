@@ -1,0 +1,51 @@
+<div class="">
+    <div class="card mb-2 pt-3 text-center">
+        <div class="text-center">
+
+            <img :src="secondary_person.image" width="128" class="rounded-circle" alt="">
+        </div>
+
+        <h3 v-text="secondary_person.full_name" class="text-center my-2"></h3>
+
+        <div v-if="secondary_person.full_name" class="text-center mb-2">
+            <button class="btn btn-primary" data-toggle="collapse" href="#collapseSecondaryPersons" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                فامیل درجه یک
+            </button>
+            <button class="btn btn-info" @click="swap_person">
+                بچرخ
+            </button>
+            <a target="_blank" :href="'{{SITE_URL}}/chart/'+secondary_person.id+'/'" class="btn btn-warning">نمودار</a>
+            <a :href="secondary_person.get_admin_url" class="btn btn-warning">ویرایش</a>
+            <button data-dismiss="modal" @click="delete_person()" type="button" class="btn btn-danger">حذف</button>
+        </div>
+
+
+
+        <div id="collapseSecondaryPersons" class="collapse">
+        
+        
+            <h6 v-if="secondary_person.father" class="text-center btn btn-success btn-block"
+                @click="select_secondary_person(person.father.id)"
+                v-text="` نام پدر : `+secondary_person.father.full_name"></h6>
+            <h6 v-if="secondary_person.mother" class="text-center btn btn-danger btn-block"
+                @click="select_secondary_person(person.mother.id)"
+                v-text="` نام مادر : `+secondary_person.mother.full_name"></h6>
+            <h6 v-for="sibling in secondary_person.siblings" v-if="sibling.id!=secondary_person.id"
+                class="text-center btn btn-secondary btn-block" @click="select_secondary_person(sibling.id)"
+                v-text="` نام خواهر /برادر : `+sibling.first_name"></h6>
+            <h6 v-for="wife in secondary_person.wives" class="text-center btn btn-info btn-block"
+                @click="select_secondary_person(wife.id)" v-text="` نام همسر : `+wife.full_name"></h6>
+            <h6 v-for="husband in secondary_person.husbands" class="text-center btn btn-info btn-block"
+                @click="select_secondary_person(husband.id)" v-text="` نام همسر : `+husband.full_name"></h6>
+            <h6 v-for="child in secondary_person.childs" class="text-center btn btn-warning btn-block"
+                @click="select_secondary_person(child.id)" v-text="` نام فرزند : `+child.full_name"></h6>
+
+        </div>
+    </div>
+
+
+
+
+
+</div>

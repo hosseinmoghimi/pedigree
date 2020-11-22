@@ -4,15 +4,29 @@ class FamilyRepo():
     def __init__(self,user):
         self.user=user
         self.objects=Family.objects
-    def add_child(self,family_id,first_name):
+    def create_family(self,father_id,mother_id):
+        father=PersonRepo(user=self.user).person(father_id)
+        mother=PersonRepo(user=self.user).person(mother_id)
+        family=Family(father=father,mother=mother)
+        family.save()
+        return family
+    def add_child(self,family_id,first_name,child_id=0):
+        if child_id==0:
+            pass
+        else:
+            child=PersonRepo(user=self.user).person(person_id=child_id)
+            if child is None:
+                return None
+
         family=self.family(family_id=family_id)
         if family is not None:
-            if family.father is not None:
-                last_name=family.father.last_name
-            else:
-                last_name=family.mother.last_name
-            child=Person(first_name=first_name,last_name=last_name)
-            child.save()
+            if child_id==0:
+                if family.father is not None:
+                    last_name=family.father.last_name
+                else:
+                    last_name=family.mother.last_name
+                child=Person(first_name=first_name,last_name=last_name)
+                child.save()            
             family.childs.add(child)
             family.save()
             return family

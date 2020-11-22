@@ -8,6 +8,7 @@ urlpatterns = [
     path('chart/<int:person_id>/',views.BasicViews().chart,name='chart'),
     path('chart2/',views.BasicViews().chart2,name='chart2'),
     path('select_family/',api.FamilyViews().select_family,name='select_family'),
+    path('create_family/',api.FamilyViews().create_family,name='create_family'),
     path('person/<int:pk>/',views.PersonView().person,name='person'),
     path('add_child/',api.FamilyViews().add_child,name='add_child'),
     path('search_person/',api.PersonView().search_person,name='search_person'),
