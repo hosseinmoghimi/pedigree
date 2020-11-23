@@ -58,11 +58,13 @@ let persons_app = new Vue(
                         person_app.person = data.person
                         person_app.families = data.families
                         person_app.selected_family = {}
-                        persons_app.persons=[]
+                        // persons_app.persons=[]
 
                     }
                 })
-            },select_secondary_person: function (person_id) {
+            },
+            
+            select_secondary_person: function (person_id) {
                 var posting = $.post(url_get_person,
                     {
                         person_id: person_id,
@@ -76,7 +78,8 @@ let persons_app = new Vue(
                     if (data.result === 'SUCCEED') {
                         person = data.person
                         person_app.secondary_person = data.person
-                        persons_app.persons=[]
+                        person_app.secondary_families = data.families
+                        // persons_app.persons=[]secondary_families
 
                     }
                 })

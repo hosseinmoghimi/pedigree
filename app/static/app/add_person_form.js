@@ -6,7 +6,8 @@ let add_person_app = new Vue(
             last_name: '',
             birthdate: '',
             deathdate: '',
-            add: 'اضافه کن',
+            add: 'اضافه کردن ',
+            gender: 'مرد',
 
         },
         methods: {
@@ -20,6 +21,7 @@ let add_person_app = new Vue(
                         last_name: add_person_app.last_name,
                         birthdate: add_person_app.birthdate,
                         deathdate: add_person_app.deathdate,
+                        gender: add_person_app.gender,
                         csrfmiddlewaretoken: csrfmiddlewaretoken
                     }
                 );
@@ -31,8 +33,8 @@ let add_person_app = new Vue(
                         add_person_app.first_name = ''
                         // add_person_app.last_name = ''
                         persons_app.persons.push(data.person)
-                        person_app.person=data.person
-                        person_app.families=[]
+                        person_app.secondary_person = data.person
+                        // person_app.families=[]
                     }
                 })
 

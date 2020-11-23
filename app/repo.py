@@ -107,8 +107,8 @@ class PersonRepo():
         return persons
 
 
-    def add_person(self,first_name,last_name,birthdate,deathdate):
-        person=Person(first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
+    def add_person(self,gender,first_name,last_name,birthdate,deathdate):
+        person=Person(gender=gender,first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
         person.save()
         return person
     def search(self,search_for):

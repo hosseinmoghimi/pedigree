@@ -5,6 +5,7 @@ let person_app = new Vue(
             confirm_delete: false,
             person: {},
             secondary_person: {},
+            secondary_families : [],
             families: [],
             selected_family: {},
             first_name: '',
@@ -13,10 +14,15 @@ let person_app = new Vue(
         },
         methods: {
             swap_person: function () {
+                let sss=this.secondary_families
+                this.secondary_families=this.families
+                this.families=sss
+
+
                 let temp1 = this.person
                 this.person = this.secondary_person
                 this.secondary_person = temp1
-                select_person(this.person.id)
+                this.select_person(this.person.id)
             },
             add_wife: function () {
                 var posting = $.post(url_add_wife,
@@ -182,7 +188,8 @@ let person_app = new Vue(
                 posting.done(function (data) {
                     console.log(data)
                     if (data.result === 'SUCCEED') {
-                        persons_app.persons = data.persons
+                        person_app.person = person_app.secondary_person
+                        person_app.confirm_delete=false
                     }
                 })
             },

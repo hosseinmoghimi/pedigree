@@ -17,7 +17,8 @@ class PersonView(APIView):
                 last_name=add_person_form.cleaned_data['last_name']
                 birthdate=add_person_form.cleaned_data['birthdate']
                 deathdate=add_person_form.cleaned_data['deathdate']
-                person= PersonRepo(user=request.user).add_person(first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
+                gender=add_person_form.cleaned_data['gender']
+                person= PersonRepo(user=request.user).add_person(gender=gender,first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
                 if person is not None:
                     log=4
                     person_s=PersonSerializer(person).data

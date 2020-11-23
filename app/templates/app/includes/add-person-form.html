@@ -16,8 +16,12 @@
 			</div>
 			<div class="col-md-4 text-right">
 
-				<button class="btn btn-success" v-text="add">					
+				<button class="btn btn-success" @click="gender='مرد'" v-text="add+' مذکر'">					
 				</button>
+
+				<button class="btn btn-success" @click="gender='زن'" v-text="add+' مونث'">					
+				</button>
+
 			</div>
 	
 		</div>
