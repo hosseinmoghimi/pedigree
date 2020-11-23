@@ -64,7 +64,7 @@
             if (family.father){
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
                 
-                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: { backgroundImage: SIMPSONS.marge } })
+                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: { backgroundImage: family.father.image } })
             }
             if (family.mother){
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
