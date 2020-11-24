@@ -1,3 +1,4 @@
+from . import settings_server
 
 
 from pathlib import Path
@@ -10,10 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'kbhs!$9lhet%gmeo4u=^&u5w#q3_(61p=nzi2ack*)c4fyx%o7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = settings_server.DEBUG
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -97,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -108,12 +107,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-from . import settings_server
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-ADMIN_URL = '/admin/'
-import os
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-
-STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+STATIC_URL =settings_server.STATIC_URL
+MEDIA_URL = settings_server.MEDIA_URL
+ADMIN_URL = settings_server.ADMIN_URL
+STATIC_ROOT=settings_server.STATIC_ROOT
+MEDIA_ROOT=settings_server.MEDIA_ROOT
+STATICFILES_DIRS=settings_server.STATICFILES_DIRS
+TIME_ZONE = settings_server.TIME_ZONE
+SECRET_KEY = settings_server.SECRET_KEY
