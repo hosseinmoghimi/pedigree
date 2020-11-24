@@ -15,7 +15,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = settings_server.DEBUG
 
-ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -115,3 +114,4 @@ MEDIA_ROOT=settings_server.MEDIA_ROOT
 STATICFILES_DIRS=settings_server.STATICFILES_DIRS
 TIME_ZONE = settings_server.TIME_ZONE
 SECRET_KEY = settings_server.SECRET_KEY
+ALLOWED_HOSTS = settings_server.ALLOWED_HOSTS
