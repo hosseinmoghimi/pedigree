@@ -5,6 +5,10 @@
     {% load static %}
     <meta charset="utf-8">
     <title>ZingSoft Demo</title>
+    <script>
+        let families = JSON.parse(`{{families_s|escapejs}}`)
+        let base_person = JSON.parse(`{{person_s|escapejs}}`)
+    </script>
     <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'leo/css/font-farsi.css' %}">
     <link rel="stylesheet" href="{% static 'leo/css/leo.css' %}">
@@ -35,15 +39,25 @@
 ​
 
 <body class="zc-body">
-    ​
+    ​<div class="">
+        <form action="{% url 'app:chart_' %}" method="GET">
+            <input type="number" placeholder="شماره" required name="person_id"><button type="submit">تایید</button>
+        </form>
+    </div>
+    <div class="text-center">
+        شجره نامه
+        <h3>
+
+            <script>
+                document.writeln(base_person.full_name)
+            </script>
+        </h3>
+    </div>
     <div id="myChart" class="chart--container">
         <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref">Powered by ZingChart</a>
     </div>
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/374756/simpsons.js'></script>
-    <script>
-        let families = JSON.parse(`{{families_s|escapejs}}`)
-        let base_person = JSON.parse(`{{person_s|escapejs}}`)
-    </script>
+
     <script src="{% static 'app/constants.js' %}"></script>
 
     <script src="{% static 'app/chart.js' %}">
@@ -90,15 +104,15 @@
 
 
             if (family.father) {
-                
+
                 // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.father.full_name })
-                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: style_person(family.father.id) })
+                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.id, style: style_person(family.father.id) })
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
-                
+
             }
             if (family.mother) {
                 // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.mother.full_name })
-                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.full_name, style: style_person(family.mother.id) })
+                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.id, style: style_person(family.mother.id) })
 
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
 
@@ -106,7 +120,7 @@
             }
             if (family.childs)
                 family.childs.forEach(child => {
-                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.full_name, style: style_person(child.id) })
+                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.id, style: style_person(child.id) })
                     cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
 
                 });

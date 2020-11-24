@@ -28,6 +28,9 @@ class BasicViews(View):
         context['add_person_form']=AddPersonForm
         context['get_person_form']=GetPersonForm
         return render(request,TEMPLATE_ROOT+'index.html',context)
+    def chart_(self,request,*args, **kwargs):
+        person_id=request.GET['person_id']
+        return self.chart(request=request,person_id=person_id)
     def chart(self,request,person_id,*args, **kwargs):
         user=request.user
         context=getContext(request)
