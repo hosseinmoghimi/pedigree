@@ -1,6 +1,7 @@
 from . import settings_server
 
-
+# SERVER_ON_HEROKU=False
+SERVER_ON_HEROKU=True
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -103,15 +104,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL =settings_server.STATIC_URL
-MEDIA_URL = settings_server.MEDIA_URL
-ADMIN_URL = settings_server.ADMIN_URL
-STATIC_ROOT=settings_server.STATIC_ROOT
-MEDIA_ROOT=settings_server.MEDIA_ROOT
-STATICFILES_DIRS=settings_server.STATICFILES_DIRS
-TIME_ZONE = settings_server.TIME_ZONE
-SECRET_KEY = settings_server.SECRET_KEY
-ALLOWED_HOSTS = settings_server.ALLOWED_HOSTS
+if SERVER_ON_HEROKU:
+    import django_heroku
+    django_heroku.settings(locals())
+else:
+    STATIC_URL =settings_server.STATIC_URL
+    MEDIA_URL = settings_server.MEDIA_URL
+    ADMIN_URL = settings_server.ADMIN_URL
+    STATIC_ROOT=settings_server.STATIC_ROOT
+    MEDIA_ROOT=settings_server.MEDIA_ROOT
+    STATICFILES_DIRS=settings_server.STATICFILES_DIRS
+    TIME_ZONE = settings_server.TIME_ZONE
+    SECRET_KEY = settings_server.SECRET_KEY
+    ALLOWED_HOSTS = settings_server.ALLOWED_HOSTS

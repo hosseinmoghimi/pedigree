@@ -5,7 +5,7 @@ from .repo import *
 from .forms import *
 from django.contrib.auth import logout as logout_origin
 from .enums import *
-from pedigree.settings import ADMIN_URL,STATIC_URL
+from pedigree.settings import ADMIN_URL,STATIC_URL,MEDIA_URL
 import json
 from .serializers import *
 
@@ -18,7 +18,7 @@ def getContext(request):
     return context
 
 def logout(request):
-    logout_origin(request)
+    logout_origin(request=request)
     return redirect(reverse('app:home'))
 
 
