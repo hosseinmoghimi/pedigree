@@ -47,7 +47,7 @@ class Person(models.Model):
             except:
                 pass     
                 
-            return []
+        return []
 
     def siblings(self):
         

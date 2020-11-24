@@ -5,6 +5,8 @@ class FamilyRepo():
     def __init__(self,user):
         self.user=user
         self.objects=Family.objects
+    def list(self):
+        return self.objects.all()
     def create_family(self,father_id,mother_id):
         
         father=PersonRepo(user=self.user).person(father_id)

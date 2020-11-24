@@ -31,11 +31,14 @@ class BasicViews(View):
     def chart(self,request,person_id,*args, **kwargs):
         user=request.user
         context=getContext(request)
-        
+        person=PersonRepo(user=request.user).person(person_id=person_id)
+        person_s=json.dumps(PersonSerializer(person).data)
+
+        context['person_s']=person_s
         # families1=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
         # families2=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
         families=FamilyRepo(user=request.user).family_of_person(person_id=person_id)
-        # families=families1 | families2
+        # families=FamilyRepo(user=request.user).objects.all()
         families_s=json.dumps(FamilySerializer(families,many=True).data)
         context['families_s']=families_s
 

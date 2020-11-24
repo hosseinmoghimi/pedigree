@@ -15,6 +15,8 @@ let person_app = new Vue(
         },
         methods: {
             swap_person: function () {
+                person_app.selected_child={}
+
                 let sss = this.secondary_families
                 this.secondary_families = this.families
                 this.families = sss
@@ -26,6 +28,8 @@ let person_app = new Vue(
                 this.select_person(this.person.id)
             },
             add_wife: function () {
+                person_app.selected_child={}
+
                 var posting = $.post(url_add_wife,
                     {
                         first_name: person_app.first_name,
@@ -50,6 +54,8 @@ let person_app = new Vue(
 
             },
             create_family: function () {
+                person_app.selected_child={}
+
                 var posting = $.post(url_create_family,
                     {
                         father_id: person_app.person.id,
@@ -71,6 +77,7 @@ let person_app = new Vue(
 
             add_child_to_family: function (child_id, family) {
 
+                person_app.selected_child={}
 
                 var posting = $.post(url_add_child,
                     {
@@ -130,6 +137,7 @@ let person_app = new Vue(
 
             },
             add_child: function (gender,family) {
+                person_app.selected_child={}
 
 
                 var posting = $.post(url_add_child,
@@ -168,12 +176,15 @@ let person_app = new Vue(
                 return template
             },
             select_family: function (family) {
+                person_app.selected_child={}
 
                 person_app.selected_family = family
                 // this.full_name=family.father?family.father.last_name:''
 
             },
             select_person: function (person_id) {
+                person_app.selected_child={}
+
                 var posting = $.post(url_get_person,
                     {
                         person_id: person_id,
@@ -194,6 +205,8 @@ let person_app = new Vue(
                 })
             },
             select_secondary_person: function (person_id) {
+                person_app.selected_child={}
+
                 console.log(person_id)
                 var posting = $.post(url_get_person,
                     {
@@ -213,6 +226,8 @@ let person_app = new Vue(
                 })
             },
             delete_person: function () {
+                person_app.selected_child={}
+
                 var posting = $.post(url_delete_person,
                     {
                         person_id: person_app.person.id,

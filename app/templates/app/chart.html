@@ -42,12 +42,14 @@
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/374756/simpsons.js'></script>
     <script>
         let families = JSON.parse(`{{families_s|escapejs}}`)
-        let persons = JSON.parse(`{{persons_s|escapejs}}`)
-        persons = []
+        let base_person = JSON.parse(`{{person_s|escapejs}}`)
     </script>
-    <script src="{% static 'app/chart.js' %}"></script>
+    <script src="{% static 'app/constants.js' %}"></script>
+
+    <script src="{% static 'app/chart.js' %}">
+    </script>
     <script>
-        SIMPSONS = {}
+        // SIMPSONS = {}
         inserted_persons = []
         let log1 = 0
 
@@ -64,27 +66,41 @@
         log1 = 1
         console.log(log1.toString())
 
+        let style_person = function (id) {
+            if (id == base_person.id) {
+                if (base_person.gender === MARD)
+                    return { backgroundImage: SIMPSONS.homer }
+                if (base_person.gender === ZAN)
+                    return { backgroundImage: SIMPSONS.marge }
+                return { backgroundImage: SIMPSONS.ling }
+
+            }
+            else {
+                return { backgroundImage: 'SIMPSONS.marge' }
+
+            }
+        }
         // persons.forEach(person => {
         //     cfg.push({ type: 'node', id: 'person' + person.id.toString(), text: person.full_name, dataFullName: person.full_name, style: { backgroundImage: SIMPSONS.marge } })
         // });
         log1 = 2
         console.log(log1.toString())
         families.forEach(family => {
-            if (family.father){
+            if (family.father) {
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
-                
-                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: { backgroundImage: SIMPSONS.marge } })
+
+                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: style_person(family.father.id) })
             }
-            if (family.mother){
+            if (family.mother) {
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
 
-                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.full_name, style: { backgroundImage: SIMPSONS.marge } })
+                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.full_name, style: style_person(family.mother.id) })
 
-            } 
+            }
             if (family.childs)
                 family.childs.forEach(child => {
                     cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
-                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.full_name, style: { backgroundImage: SIMPSONS.marge } })
+                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.full_name, style: style_person(child.id) })
 
                 });
         });
@@ -104,9 +120,9 @@
             options: {
                 aspect: 'graph',
                 springLength: 75,
-                attractionConstant: 0.8,
-                repulsionConstant: 5000,
-                repulsionDistanceFactor: 200,
+                attractionConstant: 0.5,
+                repulsionConstant: 3000,
+                repulsionDistanceFactor: 500,
                 node: {
                     size: 18,
                     borderWidth: 3,
@@ -124,7 +140,7 @@
                     }
                 },
                 'node[cls-fam]': {
-                    size: 18,
+                    size: 10,
                     borderWidth: 2,
                     borderColor: '#000',
                     backgroundColor: '#ccc',
