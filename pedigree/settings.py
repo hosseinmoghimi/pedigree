@@ -1,5 +1,4 @@
 import os
-from . import settings_server
 
 # SERVER_ON_HEROKU=False
 SERVER_ON_HEROKU=True
@@ -15,7 +14,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = settings_server.DEBUG
 
 
 
@@ -119,6 +117,7 @@ if SERVER_ON_HEROKU:
     DEBUG=True
     TIME_ZONE = 'UTC'
 else:
+    from . import settings_server
     STATIC_URL =settings_server.STATIC_URL
     MEDIA_URL = settings_server.MEDIA_URL
     ADMIN_URL = settings_server.ADMIN_URL
@@ -128,3 +127,4 @@ else:
     TIME_ZONE = settings_server.TIME_ZONE
     SECRET_KEY = settings_server.SECRET_KEY
     ALLOWED_HOSTS = settings_server.ALLOWED_HOSTS
+    DEBUG = settings_server.DEBUG
