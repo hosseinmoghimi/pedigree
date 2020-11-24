@@ -86,21 +86,28 @@
         log1 = 2
         console.log(log1.toString())
         families.forEach(family => {
-            if (family.father) {
-                cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
 
+
+
+            if (family.father) {
+                
+                // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.father.full_name })
                 cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: style_person(family.father.id) })
+                cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
+                
             }
             if (family.mother) {
+                // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.mother.full_name })
+                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.full_name, style: style_person(family.mother.id) })
+
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
 
-                cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.full_name, style: style_person(family.mother.id) })
 
             }
             if (family.childs)
                 family.childs.forEach(child => {
-                    cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
                     cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.full_name, style: style_person(child.id) })
+                    cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
 
                 });
         });
@@ -120,27 +127,27 @@
             options: {
                 aspect: 'graph',
                 springLength: 75,
-                attractionConstant: 0.5,
-                repulsionConstant: 3000,
-                repulsionDistanceFactor: 500,
+                attractionConstant: 0.8,
+                repulsionConstant: 4000,
+                repulsionDistanceFactor: 20,
                 node: {
-                    size: 18,
+                    size: 24,
                     borderWidth: 3,
-                    borderColor: '#58b',
+                    borderColor: '#036',
                     backgroundColor: '#fff',
                     backgroundRepeat: 'no-repeat',
                     backgroundScale: 0.75,
                     label: {
                         color: '#000',
                         fontWeight: 'bold',
-                        offsetY: 25
+                        offsetY: 35
                     },
                     tooltip: {
                         text: '%data-full-name'
                     }
                 },
                 'node[cls-fam]': {
-                    size: 10,
+                    size: 12,
                     borderWidth: 2,
                     borderColor: '#000',
                     backgroundColor: '#ccc',
@@ -150,7 +157,7 @@
                 },
                 link: {
                     lineWidth: 2,
-                    lineColor: '#0f0'
+                    lineColor: '#666'
                 }
             },
             series: cfg
@@ -159,7 +166,7 @@
         zingchart.render({
             id: 'myChart',
             width: '100%',
-            height: '130%',
+            height: '100%',
             output: 'canvas',
             data: cdata
         });
