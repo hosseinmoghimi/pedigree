@@ -25,6 +25,8 @@ def logout(request):
 
 class BasicViews(View):
     def home(self,request,*args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(ADMIN_URL)
         user=request.user
         context=getContext(request)
         persons=PersonRepo(user=user).persons()
@@ -35,9 +37,13 @@ class BasicViews(View):
         context['get_person_form']=GetPersonForm
         return render(request,TEMPLATE_ROOT+'index.html',context)
     def chart_(self,request,*args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(ADMIN_URL)
         person_id=request.GET['person_id']
         return self.chart(request=request,person_id=person_id)
     def chart(self,request,person_id,*args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(ADMIN_URL)
         user=request.user
         context=getContext(request)
         person=PersonRepo(user=request.user).person(person_id=person_id)
@@ -60,6 +66,8 @@ class BasicViews(View):
         return render(request,TEMPLATE_ROOT+'chart.html',context)
 
     def chart2(self,request,*args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(ADMIN_URL)
         user=request.user
         context=getContext(request)
         families=FamilyRepo(user=user).roots().filter(id__lte=4)
