@@ -1,6 +1,8 @@
 from persiantools.jdatetime import JalaliDateTime,JalaliDate
 from django.utils import timezone
-from dashboard.settings import SERVER_ON_PARS as SERVER_ON_PARS,SERVER_ON_HEROKU
+# from dashboard.settings import SERVER_ON_PARS as SERVER_ON_PARS,SERVER_ON_HEROKU
+SERVER_ON_PARS=False
+SERVER_ON_HEROKU=False
 import datetime
 class PersianCalendar:
     def tag(self,value):
@@ -52,9 +54,12 @@ class PersianCalendar:
         self.date=JalaliDateTime(year=year_,month=month_, day=day_,hour=hour_,minute=min_,second=sec_).to_gregorian()
         self.persian_date=self.from_gregorian(self.date)
         return self
-    def from_gregorian(self,greg_date_time,add_time_zone=True):
+    def from_gregorian(self,greg_date_time,add_time_zone=True,only_date=False):
+        date_format="%Y/%m/%d %H:%M:%S"
+        if only_date:
+            date_format="%Y/%m/%d"
         if not add_time_zone:
-            return JalaliDateTime.to_jalali(greg_date_time).strftime("%Y/%m/%d %H:%M:%S") 
+            return JalaliDateTime.to_jalali(greg_date_time).strftime(date_format) 
         if SERVER_ON_PARS or SERVER_ON_HEROKU:
             if self.is_in_first_half_shamsi_year():
                 hours=4
@@ -67,7 +72,8 @@ class PersianCalendar:
             else:
                 hours=3
             minutes=30
-        return JalaliDateTime.to_jalali(greg_date_time+datetime.timedelta(hours=hours,minutes=minutes)).strftime("%Y/%m/%d %H:%M:%S") 
+        return JalaliDateTime.to_jalali(greg_date_time+datetime.timedelta(hours=hours,minutes=minutes)).strftime(date_format) 
+    
     def from_gregorian_date(self,greg_date):
         return JalaliDate.to_jalali(greg_date).strftime("%Y/%m/%d") 
         

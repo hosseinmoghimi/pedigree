@@ -1,13 +1,11 @@
 <h6 v-if="person.father" class="text-center btn btn-link" @click="select_person(person.father.id)"
-    v-text="` نام پدر : `+person.father.full_name"></h6>
+    v-text="` پدر : `+person.father.full_name"></h6>
 <h6 v-if="person.mother" class="text-center btn btn-link" @click="select_person(person.mother.id)"
-    v-text="` نام مادر : `+person.mother.full_name"></h6>
+    v-text="` مادر : `+person.mother.full_name"></h6>
 <h6 v-for="sibling in person.siblings" v-if="sibling.id!=person.id" class="text-center btn btn-link"
-    @click="select_person(sibling.id)" v-text="` نام خواهر /برادر : `+sibling.first_name"></h6>
+    @click="select_person(sibling.id)" v-text="(sibling.gender===MARD?BARADAR:KHAHAR)+`: `+sibling.first_name"></h6>
 <h6 v-for="wife in person.wives" class="text-center btn btn-link" @click="select_person(wife.id)"
-    v-text="` نام همسر : `+wife.full_name"></h6>
+    v-text="` همسر : `+wife.full_name"></h6>
 <h6 v-for="husband in person.husbands" class="text-center btn btn-link" @click="select_person(husband.id)"
-    v-text="` نام همسر : `+husband.full_name"></h6>
-<h6 v-for="child in person.childs" class="text-center btn btn-link" @click="select_person(child.id)" v-html="`
-    نام فرزند : `
-    +child.full_name"></h6>
+    v-text="` همسر : `+husband.full_name"></h6>
+<h6 v-for="child in person.childs" class="text-center btn btn-link" @click="select_person(child.id)" v-text="(child.gender===MARD?PESAR:DOKHTAR)+` : `+child.full_name"></h6>

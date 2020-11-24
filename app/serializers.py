@@ -28,6 +28,6 @@ class PersonSerializer(serializers.ModelSerializer):
     siblings=PersonSerializer1(many=True)
     class Meta:
         model=Person
-        fields=['id','first_name','husbands','siblings','wives','gender','father','childs','mother','family_fathers','family_mothers','family_childs','get_admin_url','last_name','image','birthdate','get_absolute_url','full_name','deathdate']
+        fields=['id','first_name','husbands','siblings','wives','gender','father','childs','mother','family_fathers','family_mothers','family_childs','get_admin_url','last_name','image','persian_birthdate','get_absolute_url','full_name','deathdate']
 
   

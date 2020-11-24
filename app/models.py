@@ -6,6 +6,7 @@ from pedigree.settings import ADMIN_URL, MEDIA_URL,STATIC_URL
 from .apps import APP_NAME
 from django.utils.translation import gettext as _
 from .enums import GenderEnum
+from utility.persian import PersianCalendar
 import base64
 
 IMAGE_FOLDER=APP_NAME+'/Image/'
@@ -21,6 +22,10 @@ class Person(models.Model):
     
     table_name='person'
     
+    def persian_birthdate(self):
+        if self.birthdate is not None:     
+            return PersianCalendar().from_gregorian_date(self.birthdate)
+        return '-'
     def childs(self):
             
         if self.gender==GenderEnum.MALE:

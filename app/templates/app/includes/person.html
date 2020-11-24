@@ -22,6 +22,30 @@
         </div>
         <h3 v-text="person.full_name" class="text-center my-2"></h3>
 
+        <div class="row text-secondary mx-3">
+          <div class="col-4 text-right">
+            <small>
+
+            <span v-text="person.persian_birthdate"></span>
+           </small>
+
+
+         </div>
+          <div class="col-4 text-center">
+            <small>
+
+              <span v-text="'35 '"></span>
+           </small>
+          </div>
+          <div class="col-4 text-left" > 
+            <small>
+
+            <span v-text="person.persian_birthdate"></span>
+         </small>
+        
+        </div>
+         
+        </div>
         <div v-if="person.full_name" class="text-center mb-2">
           <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
@@ -31,10 +55,10 @@
           <button class="btn btn-info" @click="swap_person">
             <i class="material-icons">
               east
-          </i>
+            </i>
           </button>
           <a target="_blank" :href="'{{SITE_URL}}/chart/'+person.id+'/'" class="btn btn-warning">نمودار</a>
-          <a  target="_blank":href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
+          <a target="_blank" :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
 
 
           <button data-dismiss="modal" v-if="!confirm_delete" @click="confirm_delete=true" type="button"
@@ -86,7 +110,7 @@
 
     </div>
 
-   
+
 
   </div>
 </div>
