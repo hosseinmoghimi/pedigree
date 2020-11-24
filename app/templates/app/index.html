@@ -8,11 +8,15 @@
 
         <a class="btn btn-success" href="{% url 'app:chart2' %}">نمودار 2</a>
         <a class="btn btn-success" href="{{ADMIN_URL}}">ادمین</a>
+        {% if user.is_authenticated %}
+        <a class="btn btn-danger mx-5" href="{% url 'logout' %}">خروج</a>
+
+        {% endif %}
         <!-- <a class="btn btn-success" href="{{ADMIN_URL}}app/family/add/">خانواده جدید</a> -->
     </div>
     <div class="col-12 mb-2">
         {% include 'app/includes/add-person-form.html' %}
-        
+
     </div>
 
     <div class="col-md-12 mb-2">
@@ -22,9 +26,9 @@
 
         {% include 'app/includes/person.html' %}
     </div>
-  
+
     <div class="col-md-4 mb-2">
-        
+
         {% include "app/includes/family.html" %}
     </div>
 </div>

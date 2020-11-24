@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.views import View
 from .apps import APP_NAME
 from .repo import *
 from .forms import *
+from django.contrib.auth import logout as logout_origin
 from .enums import *
 from pedigree.settings import ADMIN_URL,STATIC_URL
 import json
@@ -13,8 +14,13 @@ def getContext(request):
     context = {}
     context['ADMIN_URL']=ADMIN_URL
     context['APP_NAME']=APP_NAME
-    context['title'] ='شجره نامه' 
+    context['title'] ='شجره نامه'
     return context
+
+def logout(request):
+    logout_origin(request)
+    return redirect(reverse('app:home'))
+
 
 
 class BasicViews(View):
@@ -67,7 +73,6 @@ class BasicViews(View):
         context['persons_s']=persons_s
 
         return render(request,TEMPLATE_ROOT+'chart2.html',context)
-# Create your views here.
 
 class PersonView(View):
     def person(self,request,*args, **kwargs):

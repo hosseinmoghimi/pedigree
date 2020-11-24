@@ -6,9 +6,9 @@ from . import api
 app_name=APP_NAME
 urlpatterns = [
     path('',login_required(views.BasicViews().home),name='home'),
-    path('chart/<int:person_id>/',views.BasicViews().chart,name='chart'),
-    path('chart/',views.BasicViews().chart_,name='chart_'),
-    path('chart2/',views.BasicViews().chart2,name='chart2'),
+    path('chart/<int:person_id>/',login_required(views.BasicViews().chart),name='chart'),
+    path('chart/',login_required(views.BasicViews().chart_),name='chart_'),
+    path('chart2/',login_required(views.BasicViews().chart2),name='chart2'),
     path('select_family/',api.FamilyViews().select_family,name='select_family'),
     path('create_family/',api.FamilyViews().create_family,name='create_family'),
     path('add_child/',api.FamilyViews().add_child,name='add_child'),
