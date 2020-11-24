@@ -5,6 +5,15 @@
     {% load static %}
     <meta charset="utf-8">
     <title>ZingSoft Demo</title>
+    <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'leo/css/font-farsi.css' %}">
+    <link rel="stylesheet" href="{% static 'leo/css/leo.css' %}">
+    <style>
+        * {
+            font-family: "HMFONT";
+        }
+    </style>
+
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 
     <style>
@@ -64,7 +73,7 @@
             if (family.father){
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
                 
-                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: { backgroundImage: family.father.image } })
+                cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.full_name, style: { backgroundImage: SIMPSONS.marge } })
             }
             if (family.mother){
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
@@ -97,25 +106,25 @@
                 springLength: 75,
                 attractionConstant: 0.8,
                 repulsionConstant: 5000,
-                repulsionDistanceFactor: 30,
+                repulsionDistanceFactor: 200,
                 node: {
-                    size: 24,
+                    size: 18,
                     borderWidth: 3,
-                    borderColor: '#036',
+                    borderColor: '#58b',
                     backgroundColor: '#fff',
                     backgroundRepeat: 'no-repeat',
                     backgroundScale: 0.75,
                     label: {
                         color: '#000',
                         fontWeight: 'bold',
-                        offsetY: 35
+                        offsetY: 25
                     },
                     tooltip: {
                         text: '%data-full-name'
                     }
                 },
                 'node[cls-fam]': {
-                    size: 12,
+                    size: 18,
                     borderWidth: 2,
                     borderColor: '#000',
                     backgroundColor: '#ccc',

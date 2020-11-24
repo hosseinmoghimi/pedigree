@@ -38,54 +38,79 @@
 
 
     <div class="cord-body">
-      <h5 class="btn btn-link d-block" v-for="child in selected_family.childs" @click="select_person(child.id)">
-
-        <span class="text-secondary">
+      <div class="text-center" v-for="child in selected_family.childs">
 
 
-          فرزند
-        </span>
 
-        <span v-text="child.full_name">
+        <span class="text-secondary" v-text="child.gender==MARD ? PESAR:DOKHTAR">
 
         </span>
-      </h5>
+        <button class="btn btn-link">
+          <span @click="select_person(child.id)" v-text="child.full_name">
+
+          </span>
+        </button>
+
+
+
+        <button class="btn btn-link text-danger " @click="remove_child0(child)">
+          X
+        </button>
+
+
+      </div>
+
+
+      <div class="my-2">
+        <button class="btn btn-danger" @click="remove_child(selected_family.id)" v-if="selected_child.full_name"
+          v-text="selected_child.full_name +' را حذف کن'"></button>
+        <button class="btn btn-secondary" @click="selected_child={}" v-if="selected_child.full_name"> خیر</button>
+      </div>
+
     </div>
 
 
 
     <div class="card-footer">
 
-      <form @submit.prevent="add_child(selected_family)">
-        <div class="row rtl">
-          <div class="col-md-8 mb-2">
+      <div class="row rtl">
+        <div class="col-md-12 mb-2">
+          <div v-if="secondary_person.full_name" class="mb-2">
+            <button class="btn btn-block btn-primary" @click="add_child_to_family(secondary_person.id,selected_family)">
 
-            <input v-model="first_name" placeholder="نام " type="text" class="form-control">
-
-          </div>
-          <div class="col-md-4 mb-2">
-
-            <button class="btn btn-success" v-text="'افزودن فرزند'">
+              افزودن
+              <span v-text="secondary_person.full_name"></span>
+              به عنوان فرزند
             </button>
-           
+
           </div>
-          <div class="col-12 mb-2">
-            <a :href="'{{ADMIN_URL}}{{APP_NAME}}/family/'+selected_family.id+'/change/'" class="btn btn-warning">
-              ویرایش</a>
-          </div>
+
+
+          <input v-model="first_name" placeholder="نام فرزند جدید " type="text" class="form-control">
+
         </div>
+        <div class="col-md-6 mb-2">
 
-      </form>
+          <button class="btn btn-success" @click="add_child(MARD,selected_family)" v-text="'افزودن پسر'">
+          </button>
+        </div>
+        <div class="col-md-6 mb-2">
 
-      <div v-if="secondary_person.full_name">
-<button class="btn btn-block btn-primary" @click="add_child_to_family(secondary_person.id,selected_family)">
+          <button class="btn btn-danger" @click="add_child(ZAN,selected_family)" v-text="'افزودن دختر'">
+          </button>
 
-  افزودن
-  <span v-text="secondary_person.full_name"></span>
-  به عنوان فرزند
-</button>
 
+        </div>
+        <div class="col-12 mb-2">
+          <a :href="'{{ADMIN_URL}}{{APP_NAME}}/family/'+selected_family.id+'/change/'" class="btn btn-warning">
+            ویرایش خانواده
+          </a>
+        </div>
       </div>
+
+
+
+
 
 
     </div>

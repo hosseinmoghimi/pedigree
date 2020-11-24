@@ -15,7 +15,7 @@
         
     </div>
 
-    <div class="col-md-4 mb-2">
+    <div class="col-md-12 mb-2">
         {% include 'app/includes/persons.html' %}
     </div>
     <div class="col-md-12 mb-2">
@@ -47,6 +47,7 @@
     let url_add_child = "{% url 'app:add_child' %}"
     let url_search_person = "{% url 'app:search_person' %}"
     let url_create_family = "{% url 'app:create_family' %}"
+    let url_remove_child = "{% url 'app:remove_child' %}"
 </script>
 {% csrf_token %}
 <script>

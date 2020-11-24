@@ -3,12 +3,18 @@
 
 
     <div class="col-md-3">
+      <h4 class="text-center">
+        شخصیت دوم
+      </h4>
       {% include 'app/includes/secondary_person.html' %}
 
     </div>
 
 
     <div class="col-md-5 mb-2">
+      <h3 class="text-center">
+        شخصیت اول
+      </h3>
       <div class="card mb-2 pt-3">
         <div class="text-center">
 
@@ -28,7 +34,7 @@
           </i>
           </button>
           <a target="_blank" :href="'{{SITE_URL}}/chart/'+person.id+'/'" class="btn btn-warning">نمودار</a>
-          <a :href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
+          <a  target="_blank":href="person.get_admin_url" class="btn btn-warning">ویرایش</a>
 
 
           <button data-dismiss="modal" v-if="!confirm_delete" @click="confirm_delete=true" type="button"

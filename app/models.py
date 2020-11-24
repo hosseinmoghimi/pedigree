@@ -6,6 +6,8 @@ from pedigree.settings import ADMIN_URL, MEDIA_URL,STATIC_URL
 from .apps import APP_NAME
 from django.utils.translation import gettext as _
 from .enums import GenderEnum
+import base64
+
 IMAGE_FOLDER=APP_NAME+'/Image/'
 class Person(models.Model):
     gender=models.CharField(_("gender"),choices=GenderEnum.choices, max_length=50)
@@ -20,33 +22,33 @@ class Person(models.Model):
     table_name='person'
     
     def childs(self):
-        
-    # if self.gender==GenderEnum.MALE:
-    # if self.gender==GenderEnum.FEMALE:
-
-
-        try:
-            ids=[]
-            for family in self.family_fathers.all():
-                for child in family.childs.all():       
-                    ids.append(child.id)   
-            childs=Person.objects.filter(id__in=ids)
-            return childs
-        except:
-            pass
-    
-        try:
-            ids=[]
-            for family in self.family_mothers.all():
-                for child in family.childs.all():        
-                    ids.append(child.id)   
-            childs=Person.objects.filter(id__in=ids)
-            return childs
-        except:
-            pass     
             
-        return []
-    
+        if self.gender==GenderEnum.MALE:
+
+
+            try:
+                ids=[]
+                for family in self.family_fathers.all():
+                    for child in family.childs.all():       
+                        ids.append(child.id)   
+                childs=Person.objects.filter(id__in=ids)
+                return childs
+            except:
+                pass
+
+        if self.gender==GenderEnum.FEMALE:
+            try:
+                ids=[]
+                for family in self.family_mothers.all():
+                    for child in family.childs.all():        
+                        ids.append(child.id)   
+                childs=Person.objects.filter(id__in=ids)
+                return childs
+            except:
+                pass     
+                
+            return []
+
     def siblings(self):
         
      
@@ -99,6 +101,22 @@ class Person(models.Model):
         if self.image_origin :
             return MEDIA_URL+str(self.image_origin)
         return STATIC_URL+'app/img/person.jpg'
+    def imagebase64(self):
+        if self.image_origin and self.image_origin is not None:
+            
+            # import os
+            # from pedigree.settings import MEDIA_ROOT
+            # filename=os.path.join(MEDIA_ROOT,APP_NAME)
+            # filename=os.path.join(filename,'Person')
+            # filename=os.path.join(filename,self.image)
+            print(self.image_origin.path)
+            # print(self.image_origin)
+            print(200*'#')
+            with open(self.image_origin.path, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            print(encoded_string)
+            return encoded_string
+        return None
     
     class Meta:
         verbose_name = _("Person")

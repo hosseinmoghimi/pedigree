@@ -1,22 +1,27 @@
 from .models import *
 from django.db.models import Q
+from .enums import GenderEnum
 class FamilyRepo():
     def __init__(self,user):
         self.user=user
         self.objects=Family.objects
     def create_family(self,father_id,mother_id):
+        
         father=PersonRepo(user=self.user).person(father_id)
         mother=PersonRepo(user=self.user).person(mother_id)
+        if father.gender==GenderEnum.MALE and mother.gender==GenderEnum.FEMALE:
+            pass
+        elif father.gender==GenderEnum.FEMALE and mother.gender==GenderEnum.MALE:
+            x=father
+            father=mother
+            mother=x
+        
+         
         family=Family(father=father,mother=mother)
         family.save()
         return family
-    def add_child(self,family_id,first_name,child_id=0):
-        if child_id==0:
-            pass
-        else:
-            child=PersonRepo(user=self.user).person(person_id=child_id)
-            if child is None:
-                return None
+    def add_child(self,family_id,first_name,gender,child_id=0):
+           
 
         family=self.family(family_id=family_id)
         if family is not None:
@@ -25,10 +30,15 @@ class FamilyRepo():
                     last_name=family.father.last_name
                 else:
                     last_name=family.mother.last_name
-                child=Person(first_name=first_name,last_name=last_name)
+                child=Person(first_name=first_name,gender=gender,last_name=last_name)
                 child.save()            
+            else:
+                child=PersonRepo(user=self.user).person(person_id=child_id)
+                # if child is None:
+                #     return None
             family.childs.add(child)
             family.save()
+            print(child.full_name())
             return family
 
     def family_of_person(self,person_id):
@@ -67,6 +77,12 @@ class FamilyRepo():
     def roots(self):
         # return self.objects.filter(Q(father=None)|Q(mother=None))
         return self.objects.all()
+    def remove_child(self,child_id,family_id):
+        family=self.family(family_id=family_id)
+        child=PersonRepo(user=self.user).person(person_id=child_id)
+        family.childs.remove(child)
+        family.save()
+        return family
 class PersonRepo():
     def __init__(self,user):
         self.user=user

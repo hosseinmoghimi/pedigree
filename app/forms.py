@@ -15,11 +15,15 @@ class AddPersonForm(forms.Form):
     birthdate=forms.DateField(required=False)
     deathdate=forms.DateField(required=False)
     
+class RemoveChildForm(forms.Form):
+    child_id=forms.IntegerField(required=False)
+    family_id=forms.IntegerField(required=True)
+    
 class AddChildForm(forms.Form):
     child_id=forms.IntegerField(required=False)
     family_id=forms.IntegerField(required=True)
     first_name=forms.CharField(max_length=50,required=True)
-    
+    gender=forms.CharField(max_length=10,required=False)
     
 class CreateFamilyForm(forms.Form):
     father_id=forms.IntegerField(required=True)

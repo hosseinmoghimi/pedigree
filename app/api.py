@@ -18,6 +18,7 @@ class PersonView(APIView):
                 birthdate=add_person_form.cleaned_data['birthdate']
                 deathdate=add_person_form.cleaned_data['deathdate']
                 gender=add_person_form.cleaned_data['gender']
+                
                 person= PersonRepo(user=request.user).add_person(gender=gender,first_name=first_name,last_name=last_name,birthdate=birthdate,deathdate=deathdate)
                 if person is not None:
                     log=4
@@ -90,7 +91,26 @@ class PersonView(APIView):
                     return JsonResponse(context)
         return JsonResponse({'result':FAILED,'log':log})
 class FamilyViews(APIView):
-
+    def remove_child(self,request,*args, **kwargs):
+        log=1
+        if request.method=='POST':
+            log=2
+            remove_child_form=RemoveChildForm(request.POST)
+            if remove_child_form.is_valid():
+                log=3
+                family_id=remove_child_form.cleaned_data['family_id']
+                child_id=remove_child_form.cleaned_data['child_id']
+                family= FamilyRepo(user=request.user).remove_child(child_id=child_id,family_id=family_id)
+                if family is not None:
+                    log=4
+                    family_s=FamilySerializer(family).data
+                    context={
+                        'result':SUCCEED,
+                        'family':family_s
+                    }
+                    return JsonResponse(context)
+        return JsonResponse({'result':FAILED,'log':log})
+    
     def add_child(self,request,*args, **kwargs):
         log=1
         if request.method=='POST':
@@ -101,7 +121,8 @@ class FamilyViews(APIView):
                 first_name=add_child_form.cleaned_data['first_name']
                 family_id=add_child_form.cleaned_data['family_id']
                 child_id=add_child_form.cleaned_data['child_id']
-                family= FamilyRepo(user=request.user).add_child(child_id=child_id,first_name=first_name,family_id=family_id)
+                gender=add_child_form.cleaned_data['gender']
+                family= FamilyRepo(user=request.user).add_child(child_id=child_id,first_name=first_name,gender=gender,family_id=family_id)
                 if family is not None:
                     log=4
                     family_s=FamilySerializer(family).data

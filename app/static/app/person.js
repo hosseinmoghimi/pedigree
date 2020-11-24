@@ -5,18 +5,19 @@ let person_app = new Vue(
             confirm_delete: false,
             person: {},
             secondary_person: {},
-            secondary_families : [],
+            secondary_families: [],
             families: [],
             selected_family: {},
             first_name: '',
+            selected_child:{},
 
 
         },
         methods: {
             swap_person: function () {
-                let sss=this.secondary_families
-                this.secondary_families=this.families
-                this.families=sss
+                let sss = this.secondary_families
+                this.secondary_families = this.families
+                this.families = sss
 
 
                 let temp1 = this.person
@@ -62,7 +63,7 @@ let person_app = new Vue(
 
                     if (data.result === 'SUCCEED') {
                         person_app.families.push(data.family)
-                      
+
                     }
                 })
 
@@ -96,20 +97,54 @@ let person_app = new Vue(
 
 
             },
-            add_child: function (family) {
+            remove_child0:function(child){
+                this.selected_child=child
+            },
+            remove_child:function(family_id){
+                let child_id=this.selected_child.id
 
 
-                var posting = $.post(url_add_child,
+                var posting = $.post(url_remove_child,
                     {
-                        first_name: person_app.first_name,
-                        family_id: family.id,
+                        family_id: family_id,
+                        child_id:child_id,
                         csrfmiddlewaretoken: csrfmiddlewaretoken
                     }
                 );
 
                 // Put the results in a div
                 posting.done(function (data) {
+                    console.log(data)
+                    if (data.result === 'SUCCEED') {
+                        person_app.selected_child={}
+                        person_app.first_name = ''
+                        person_app.families.forEach(family => {
+                            if (family.id == data.family.id) {
+                                family.childs = data.family.childs
+                            }
 
+                        });
+                    }
+                })
+
+
+            },
+            add_child: function (gender,family) {
+
+
+                var posting = $.post(url_add_child,
+                    {
+                        first_name: person_app.first_name,
+                        family_id: family.id,
+                        gender:gender,
+                        child_id:0,
+                        csrfmiddlewaretoken: csrfmiddlewaretoken
+                    }
+                );
+
+                // Put the results in a div
+                posting.done(function (data) {
+                    console.log(data)
                     if (data.result === 'SUCCEED') {
                         person_app.first_name = ''
                         person_app.families.forEach(family => {
@@ -159,6 +194,7 @@ let person_app = new Vue(
                 })
             },
             select_secondary_person: function (person_id) {
+                console.log(person_id)
                 var posting = $.post(url_get_person,
                     {
                         person_id: person_id,
@@ -189,7 +225,7 @@ let person_app = new Vue(
                     console.log(data)
                     if (data.result === 'SUCCEED') {
                         person_app.person = person_app.secondary_person
-                        person_app.confirm_delete=false
+                        person_app.confirm_delete = false
                     }
                 })
             },

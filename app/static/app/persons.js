@@ -5,6 +5,7 @@ let persons_app = new Vue(
             persons: persons,
             add: 'جستجو کن',
             search_for: '',
+            show_list:false,
 
 
         },
@@ -25,6 +26,7 @@ let persons_app = new Vue(
                         if (data.result === 'SUCCEED') {
                             persons = data.persons
                             persons_app.persons = data.persons
+                            persons_app.show_list=true
                         }
                     })
 
