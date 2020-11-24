@@ -1,3 +1,4 @@
+import os
 from . import settings_server
 
 # SERVER_ON_HEROKU=False
@@ -103,7 +104,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 if SERVER_ON_HEROKU:
     import django_heroku
     django_heroku.settings(locals())
