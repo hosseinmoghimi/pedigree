@@ -105,14 +105,15 @@ USE_TZ = True
 if SERVER_ON_HEROKU:
     import django_heroku
     django_heroku.settings(locals())
-    ALLOWED_HOSTS = ['herokuapp.com']
+    ALLOWED_HOSTS = ['herokuapp.com','pedigree-2020.herokuapp.com']
     SECRET_KEY = 'kbhs!$9lhet%gmeo4u=^&u5w#q3_(61p=nzi2ack*)c4fyx%o7'
     SITE_URL='/'
     STATIC_URL = SITE_URL+'static/'
     MEDIA_URL = SITE_URL+'media/'
     ADMIN_URL = SITE_URL+'admin/'
-    STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
-    MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+    PUBLIC_ROOT='/app/'
+    STATIC_ROOT=PUBLIC_ROOT+'staticfiles/'
+    MEDIA_ROOT=PUBLIC_ROOT+'media/'
     STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
     DEBUG=True
     TIME_ZONE = 'UTC'
