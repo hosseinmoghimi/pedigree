@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 from .apps import APP_NAME
 from . import api
 app_name=APP_NAME
 urlpatterns = [
-    path('',views.BasicViews().home,name='home'),
+    path('',login_required(views.BasicViews().home),name='home'),
     path('chart/<int:person_id>/',views.BasicViews().chart,name='chart'),
     path('chart/',views.BasicViews().chart_,name='chart_'),
     path('chart2/',views.BasicViews().chart2,name='chart2'),

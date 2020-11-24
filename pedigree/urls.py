@@ -24,6 +24,7 @@ from django.conf.urls import url
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
+	path('accounts/login/', admin.site.urls),
 	path('',include('app.urls')),
 
 	url(r'^static/(?P<path>.*)$', serve,{'document_root': STATIC_ROOT}),
