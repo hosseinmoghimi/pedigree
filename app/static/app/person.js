@@ -10,8 +10,12 @@ let person_app = new Vue(
             selected_family: {},
             first_name: '',
             selected_child:{},
+            birth_date:'1399/02/24',
 
+        },
 
+        components: {
+            DatePicker: VuePersianDatetimePicker
         },
         methods: {
             swap_person: function () {

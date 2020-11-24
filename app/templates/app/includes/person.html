@@ -26,25 +26,30 @@
           <div class="col-4 text-right">
             <small>
 
-            <span v-text="person.persian_birthdate"></span>
-           </small>
+              <span v-text="person.persian_birthdate"></span>
+            </small>
 
 
-         </div>
+          </div>
           <div class="col-4 text-center">
             <small>
 
               <span v-text="'35 '"></span>
-           </small>
+            </small>
           </div>
-          <div class="col-4 text-left" > 
+          <div class="col-4 text-left">
             <small>
 
-            <span v-text="person.persian_birthdate"></span>
-         </small>
-        
-        </div>
-         
+              <span v-text="person.persian_birthdate"></span>
+            </small>
+
+          </div>
+          <div class="col-6">
+            <date-picker v-model="birth_date"></date-picker>
+          </div>
+          <div class="col-6">
+
+          </div>
         </div>
         <div v-if="person.full_name" class="text-center mb-2">
           <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"

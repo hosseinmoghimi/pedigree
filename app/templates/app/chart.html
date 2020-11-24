@@ -107,12 +107,42 @@
 
                 // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.father.full_name })
                 cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.id, style: style_person(family.father.id) })
-                cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
+                // cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
 
             }
             if (family.mother) {
                 // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.mother.full_name })
                 cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.id, style: style_person(family.mother.id) })
+
+                // cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
+
+
+            }
+            if (family.childs)
+                family.childs.forEach(child => {
+                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.id, style: style_person(child.id) })
+                    // cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
+
+                });
+        });
+
+
+
+
+        families.forEach(family => {
+
+
+
+            if (family.father) {
+
+                // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.father.full_name })
+                // cfg.push({ type: 'node', id: 'person' + family.father.id.toString(), text: family.father.full_name, dataFullName: family.father.id, style: style_person(family.father.id) })
+                cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.father.id.toString() })
+
+            }
+            if (family.mother) {
+                // cfg.push({ type: 'node', id: 'family' + family.id.toString(), cls: 'fam', text: ' ', dataFullName: family.mother.full_name })
+                // cfg.push({ type: 'node', id: 'person' + family.mother.id.toString(), text: family.mother.full_name, dataFullName: family.mother.id, style: style_person(family.mother.id) })
 
                 cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + family.mother.id.toString() })
 
@@ -120,11 +150,12 @@
             }
             if (family.childs)
                 family.childs.forEach(child => {
-                    cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.id, style: style_person(child.id) })
+                    // cfg.push({ type: 'node', id: 'person' + child.id.toString(), text: child.full_name, dataFullName: child.id, style: style_person(child.id) })
                     cfg.push({ type: 'link', source: 'family' + family.id.toString(), target: 'person' + child.id.toString() })
 
                 });
         });
+
 
         log1 = 3
         console.log(log1.toString())
@@ -132,17 +163,17 @@
         var cdata = {
             type: 'tree',
             plotarea: {
-                margin: 20
+                margin: 10
             },
             source: {
-                align: 'left',
+                align: 'center',
                 text: 'Original idea by http://bmdata.co.uk/simpsons/'
             },
             options: {
                 aspect: 'graph',
-                springLength: 70,
+                springLength: 75,
                 attractionConstant: 0.8,
-                repulsionConstant: 4000,
+                repulsionConstant: 8000,
                 repulsionDistanceFactor: 50,
                 node: {
                     size: 18,
